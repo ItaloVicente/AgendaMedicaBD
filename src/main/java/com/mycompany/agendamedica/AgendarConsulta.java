@@ -180,18 +180,14 @@ public class AgendarConsulta extends javax.swing.JFrame {
         DefaultTableModel table = (DefaultTableModel) jtConsultas.getModel();
         int index5 = table.getRowCount();
         MedicoDAO daom = new MedicoDAO();
-        ArrayList<Medico> medicos = daom.read();
+        ArrayList<Medico> medicos = daom.read(pesquisaTxt.getText());
         for(int x=0;x<index5;x++){
             table.removeRow(0);
         }
         for(Medico medico: medicos){
-            String nomeMedico = medico.getNome();
-            String especialidadeMedico = medico.getEspecialidade();
-            if(nomeMedico.equals(pesquisaTxt.getText().toUpperCase())||especialidadeMedico.equals(pesquisaTxt.getText().toUpperCase())){
-                DefaultTableModel dtmConsultas = (DefaultTableModel) jtConsultas.getModel();
-                Object[] dados = {medico.getNome(),medico.getEspecialidade(),medico.calcularMedia(),medico.getId()};
-                dtmConsultas.addRow(dados);
-            }
+            DefaultTableModel dtmConsultas = (DefaultTableModel) jtConsultas.getModel();
+            Object[] dados = {medico.getNome(),medico.getEspecialidade(),medico.calcularMedia(),medico.getId()};
+            dtmConsultas.addRow(dados);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
