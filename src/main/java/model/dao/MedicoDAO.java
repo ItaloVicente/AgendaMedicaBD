@@ -75,7 +75,35 @@ public class MedicoDAO {
             JOptionPane.showMessageDialog(null,"Senha admin incorreta");
         }
     }
-    
+    //funcao sobrecarga para inativar o medico
+    public void update(Medico m, String senhaADM, int ativo){
+        if(ConnectionFactory.getSenhaADM().equals(senhaADM)){
+        
+            Connection con = ConnectionFactory.getConnection();
+            PreparedStatement stmt = null;
+
+            try {
+                stmt = con.prepareStatement("UPDATE medico SET nome = ? , especialidade = ? , senha = ?, crm = ?, ativo = ? WHERE id_medico = ?");
+                stmt.setString(1,m.getNome());
+                stmt.setString(2, m.getEspecialidade());
+                stmt.setString(3, m.getSenha());
+                stmt.setString(4, m.getCRM());
+                stmt.setInt(5,ativo);
+                stmt.setInt(6,m.getId());
+
+                stmt.executeUpdate();
+
+                JOptionPane.showMessageDialog(null,"Atualizado com sucesso");
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null,"Erro ao atualizar: " + ex);
+                }finally{
+                    ConnectionFactory.closeConnection(con, stmt);
+                }
+        }else{
+            JOptionPane.showMessageDialog(null,"Senha admin incorreta");
+        }
+    }
+    //apenas para mostrar como deletar algo
     public void delete(Medico m){
         
         Connection con = ConnectionFactory.getConnection();
@@ -109,6 +137,10 @@ public class MedicoDAO {
             }finally{
                 ConnectionFactory.closeConnection(con, stmt);
             }
+    }
+    public void inativar(Medico m, String senhaADM){
+        m.setAtivo(0);
+        this.update(m, senhaADM, m.getAtivo());
     }
      public Medico getByCRM(String CRM){
         

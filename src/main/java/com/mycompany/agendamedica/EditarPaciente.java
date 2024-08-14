@@ -146,7 +146,7 @@ public class EditarPaciente extends javax.swing.JFrame {
         
         SimpleDateFormat dateFormat = new SimpleDateFormat("yy-MM-dd");
         String formattedDate = dateFormat.format(jDateChooser1.getDate());
-        String nome = nomePaciente.getText();
+        String nome = nomePaciente.getText().toUpperCase();
         String senha = senhaPaciente.getText();
         String sexo = null;
         if(jRadioButton1.isSelected())

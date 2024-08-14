@@ -12,6 +12,8 @@ import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import model.dao.MedicoDAO;
+import model.dao.PacienteDAO;
 
 /**
  *
@@ -281,7 +283,28 @@ public class PosLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_chxCancelarActionPerformed
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
-        
+        if(Cadastro.getMedico()!=null){
+            Medico m = Cadastro.getMedico();
+            MedicoDAO daom = new MedicoDAO();
+            String senhaMedico = JOptionPane.showInputDialog("Insira sua senha para confirmar a operacao: ");
+            if(senhaMedico.equals(m.getSenha())){
+                String senhaADM = JOptionPane.showInputDialog("Insira a senha de administrador: ");
+                daom.inativar(m, senhaADM);
+                JOptionPane.showMessageDialog(null, "Conta inativada com sucesso!");
+            }else{
+                JOptionPane.showMessageDialog(null, "Senha invalida! Faca a operacao novamente");
+            }
+        }else{
+            Paciente p = Cadastro.getPaciente();
+            PacienteDAO daop = new PacienteDAO();
+            String senhaPaciente = JOptionPane.showInputDialog("Insira sua senha para confirmar a operacao: ");
+            if(senhaPaciente.equals(p.getSenha())){
+                daop.inativar(p);
+                JOptionPane.showMessageDialog(null, "Conta inativada com sucesso!");
+            }else{
+                JOptionPane.showMessageDialog(null, "Senha invalida! Faca a operacao novamente");
+            }
+        }
     }//GEN-LAST:event_jButton2MouseClicked
 
     /**

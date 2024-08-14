@@ -23,13 +23,21 @@ public class Medico {
     private ArrayList<Double> notas = new ArrayList();
     private ArrayList<Consulta> consultas = new ArrayList();
     private ArrayList<Consulta> listaEspera = new ArrayList();
+    private int ativo = 1;
     public Medico(String nome, String especialidade, String senha, String CRM) {
         this.nome = nome;
         this.especialidade = especialidade;
         this.senha = senha;
         this.CRM=CRM;
     }
+    public void setAtivo(int ativo){
+        this.ativo = ativo;
+    }
 
+    public int getAtivo() {
+        return ativo;
+    }
+    
     public String getCRM() {
         return CRM;
     }

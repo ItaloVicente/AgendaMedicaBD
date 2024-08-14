@@ -89,7 +89,32 @@ public class PacienteDAO {
                 ConnectionFactory.closeConnection(con, stmt);
             }
     }
-    
+    //funcao sobrecarga para inativar o paciente
+    public void update(Paciente p, int ativo){
+        
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        
+        try {
+            stmt = con.prepareStatement("UPDATE paciente SET nome = ? , sexo = ? , senha = ? , data_de_nascimento = ? , cpf = ?, ativo = ?  WHERE id_paciente = ?");
+            stmt.setString(1,p.getNome());
+            stmt.setString(2, p.getSexo());
+            stmt.setString(3, p.getSenha());
+            stmt.setString(4, p.getData_de_nascimento());
+            stmt.setString(5, p.getCPF());
+            stmt.setInt(6,ativo);
+            stmt.setInt(7, p.getId());
+
+            stmt.executeUpdate();
+
+            JOptionPane.showMessageDialog(null,"Atualizado com sucesso");
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null,"Erro ao atualizar: " + ex);
+            }finally{
+                ConnectionFactory.closeConnection(con, stmt);
+            }
+    }
+    //apenas para mostrar o comando delete
     public void delete(Paciente p){
         
         Connection con = ConnectionFactory.getConnection();
@@ -115,6 +140,11 @@ public class PacienteDAO {
             }finally{
                 ConnectionFactory.closeConnection(con, stmt);
             }
+    }
+    
+        public void inativar(Paciente p){
+        p.setAtivo(0);
+        this.update(p, p.getAtivo());
     }
    public Paciente getByCPF(String CPF){
         

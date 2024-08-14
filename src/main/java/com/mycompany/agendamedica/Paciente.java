@@ -23,10 +23,19 @@ public class Paciente {
     private String CPF;
     private String sexo;
     private String senha;
+    private int ativo = 1;
     private ArrayList<Consulta> consultas = new ArrayList<>();
     private ArrayList<Consulta> listaEspera = new ArrayList<>();
     private ArrayList<Consulta> consultasRealizadas = new ArrayList<>();
     private ArrayList<Consulta> avaliarConsultas = new ArrayList<>();
+
+    public int getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(int ativo) {
+        this.ativo = ativo;
+    }
 
     public ArrayList<Consulta> getAvaliarConsultas() {
         ConsultaDAO daoc = new ConsultaDAO();
