@@ -6,6 +6,7 @@ package com.mycompany.agendamedica;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.JOptionPane;
 import model.dao.MedicoDAO;
 import model.dao.PacienteDAO;
 /**
@@ -41,20 +42,20 @@ public class EditarPaciente extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         nomePaciente = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        senhaPaciente = new javax.swing.JTextField();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jLabel5 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
+        senhaPaciente = new javax.swing.JPasswordField();
         jButton2 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        jPasswordField2 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("ATUALIZAR PACIENTE");
         setMinimumSize(new java.awt.Dimension(622, 432));
-        setPreferredSize(new java.awt.Dimension(0, 0));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
@@ -67,27 +68,19 @@ public class EditarPaciente extends javax.swing.JFrame {
         getContentPane().add(jLabel2);
         jLabel2.setBounds(210, 190, 33, 16);
         getContentPane().add(nomePaciente);
-        nomePaciente.setBounds(330, 190, 160, 22);
+        nomePaciente.setBounds(330, 182, 160, 30);
 
         jLabel4.setText("Data de nascimento");
         getContentPane().add(jLabel4);
         jLabel4.setBounds(210, 240, 110, 16);
 
+        jDateChooser1.setDateFormatString("yy-MM-dd");
+        getContentPane().add(jDateChooser1);
+        jDateChooser1.setBounds(330, 232, 160, 30);
+
         jLabel5.setText("Senha");
         getContentPane().add(jLabel5);
         jLabel5.setBounds(210, 280, 37, 16);
-
-        senhaPaciente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                senhaPacienteActionPerformed(evt);
-            }
-        });
-        getContentPane().add(senhaPaciente);
-        senhaPaciente.setBounds(330, 280, 160, 22);
-
-        jDateChooser1.setDateFormatString("yy-MM-dd");
-        getContentPane().add(jDateChooser1);
-        jDateChooser1.setBounds(330, 240, 160, 22);
 
         jButton3.setText("Atualizar");
         jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -106,7 +99,7 @@ public class EditarPaciente extends javax.swing.JFrame {
         buttonGroup1.add(jRadioButton1);
         jRadioButton1.setText("Masculino");
         getContentPane().add(jRadioButton1);
-        jRadioButton1.setBounds(330, 320, 78, 21);
+        jRadioButton1.setBounds(330, 320, 77, 21);
 
         buttonGroup1.add(jRadioButton2);
         jRadioButton2.setText("Feminino");
@@ -120,7 +113,9 @@ public class EditarPaciente extends javax.swing.JFrame {
 
         jLabel1.setText("Sexo");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(210, 320, 25, 16);
+        jLabel1.setBounds(210, 320, 100, 16);
+        getContentPane().add(senhaPaciente);
+        senhaPaciente.setBounds(330, 272, 160, 30);
 
         jButton2.setForeground(new java.awt.Color(255, 0, 0));
         jButton2.setText("Inativar Conta");
@@ -136,14 +131,12 @@ public class EditarPaciente extends javax.swing.JFrame {
         getContentPane().add(jLabel3);
         jLabel3.setBounds(0, 0, 930, 740);
 
-        getAccessibleContext().setAccessibleName("ATUALIZAR PACIENTE");
+        jPasswordField2.setText("jPasswordField2");
+        getContentPane().add(jPasswordField2);
+        jPasswordField2.setBounds(330, 272, 160, 30);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void senhaPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_senhaPacienteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_senhaPacienteActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
@@ -160,7 +153,11 @@ public class EditarPaciente extends javax.swing.JFrame {
             sexo = "M";
         else
             sexo = "F";
-         pacienteDAO.update(paciente.getCPF(), nome, sexo, senha, formattedDate);
+        String senhacheck = JOptionPane.showInputDialog("Insira sua senha para confirmar a operacao: ");
+        if(senhacheck.equals(paciente.getSenha()))
+            pacienteDAO.update(paciente.getCPF(), nome, sexo, senha, formattedDate);
+        else
+            JOptionPane.showMessageDialog(null, "Senha invalida! Faca a operacao novamente");
     }//GEN-LAST:event_jButton3MouseClicked
 
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
@@ -231,9 +228,10 @@ public class EditarPaciente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JPasswordField jPasswordField2;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JTextField nomePaciente;
-    private javax.swing.JTextField senhaPaciente;
+    private javax.swing.JPasswordField senhaPaciente;
     // End of variables declaration//GEN-END:variables
 }
