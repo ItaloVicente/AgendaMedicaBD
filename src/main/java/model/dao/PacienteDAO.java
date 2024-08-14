@@ -126,9 +126,10 @@ public class PacienteDAO {
             stmt = con.prepareStatement("SELECT * FROM paciente WHERE cpf = ?");
             stmt.setString(1, CPF);
             rs = stmt.executeQuery();
+            while(rs.next()){
                 paciente = new Paciente(rs.getString("nome"),rs.getString("data_de_nascimento"), rs.getString("sexo"), rs.getString("senha"), rs.getString("cpf"));
                 paciente.setId(rs.getInt("id_paciente"));
-                
+            }
         } catch (SQLException ex) {
             Logger.getLogger(ConsultaDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
