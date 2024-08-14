@@ -165,9 +165,16 @@ public class PosLogin extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
 //         TODO add your handling code here:;
+        if(Cadastro.getPaciente() != null){
         EditarPaciente frame = new EditarPaciente(Cadastro.getPaciente());
         frame.setVisible(true);
         this.dispose();
+        }
+        else{
+        EditarMedico frame = new EditarMedico(Cadastro.getMedico());
+        frame.setVisible(true);
+        this.dispose();
+        }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated

@@ -48,6 +48,7 @@ public class EditarPaciente extends javax.swing.JFrame {
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -84,7 +85,7 @@ public class EditarPaciente extends javax.swing.JFrame {
         getContentPane().add(senhaPaciente);
         senhaPaciente.setBounds(330, 280, 160, 22);
 
-        jDateChooser1.setDateFormatString("dd/MM/yyyy");
+        jDateChooser1.setDateFormatString("yy-MM-dd");
         getContentPane().add(jDateChooser1);
         jDateChooser1.setBounds(330, 240, 160, 22);
 
@@ -121,6 +122,16 @@ public class EditarPaciente extends javax.swing.JFrame {
         getContentPane().add(jLabel1);
         jLabel1.setBounds(210, 320, 25, 16);
 
+        jButton2.setForeground(new java.awt.Color(255, 0, 0));
+        jButton2.setText("Inativar Conta");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
+        getContentPane().add(jButton2);
+        jButton2.setBounds(10, 350, 120, 23);
+
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mycompany/blackkk.png"))); // NOI18N
         getContentPane().add(jLabel3);
         jLabel3.setBounds(0, 0, 930, 740);
@@ -140,7 +151,7 @@ public class EditarPaciente extends javax.swing.JFrame {
 
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
         
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yy-MM-dd");
         String formattedDate = dateFormat.format(jDateChooser1.getDate());
         String nome = nomePaciente.getText();
         String senha = senhaPaciente.getText();
@@ -149,7 +160,7 @@ public class EditarPaciente extends javax.swing.JFrame {
             sexo = "M";
         else
             sexo = "F";
-         pacienteDAO.update(paciente.getCPF(), nome, senha, sexo, formattedDate);
+         pacienteDAO.update(paciente.getCPF(), nome, sexo, senha, formattedDate);
     }//GEN-LAST:event_jButton3MouseClicked
 
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
@@ -157,8 +168,8 @@ public class EditarPaciente extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioButton2ActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        System.out.println(paciente!=null);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yy-MM-dd");
         Paciente p = pacienteDAO.getByCPF(paciente.getCPF());
         nomePaciente.setText(p.getNome());
         senhaPaciente.setText(p.getSenha());
@@ -174,6 +185,10 @@ public class EditarPaciente extends javax.swing.JFrame {
         else
             jRadioButton2.setSelected(true);
     }//GEN-LAST:event_formWindowOpened
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        
+    }//GEN-LAST:event_jButton2MouseClicked
 
     /**
      * @param args the command line arguments
@@ -208,6 +223,7 @@ public class EditarPaciente extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
