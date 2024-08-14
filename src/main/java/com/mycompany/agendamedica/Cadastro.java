@@ -53,6 +53,7 @@ public class Cadastro extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         nomeTxt = new javax.swing.JTextField();
         bntLogin = new javax.swing.JButton();
@@ -69,7 +70,6 @@ public class Cadastro extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("LOGIN");
-        setMaximumSize(new java.awt.Dimension(780, 780));
         setMinimumSize(new java.awt.Dimension(780, 780));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -131,6 +131,7 @@ public class Cadastro extends javax.swing.JFrame {
         getContentPane().add(jLabel4);
         jLabel4.setBounds(110, 70, 170, 16);
 
+        buttonGroup1.add(chxMedico);
         chxMedico.setText("Medico");
         chxMedico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -140,6 +141,7 @@ public class Cadastro extends javax.swing.JFrame {
         getContentPane().add(chxMedico);
         chxMedico.setBounds(290, 70, 85, 20);
 
+        buttonGroup1.add(chxPaciente);
         chxPaciente.setText("Paciente");
         chxPaciente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -176,7 +178,7 @@ public class Cadastro extends javax.swing.JFrame {
         PacienteDAO daop = new PacienteDAO();
         MedicoDAO daom = new MedicoDAO();
         //Caso login medico
-        if(chxMedico.isSelected()==true&&chxPaciente.isSelected()==false){
+        if(chxMedico.isSelected()){
             String crm = nomeTxt.getText().toUpperCase();
             String senha = senhaTxt.getText();
             if(daom.checkLogin(crm, senha) == true){
@@ -192,7 +194,7 @@ public class Cadastro extends javax.swing.JFrame {
             
         }
         //Caso login paciente
-        if(chxMedico.isSelected()==false&&chxPaciente.isSelected()==true){
+        else if(chxPaciente.isSelected()){
             String cpf = nomeTxt.getText().toUpperCase();
             String senha = senhaTxt.getText();
             if(daop.checkLogin(cpf, senha) == true){
@@ -207,7 +209,7 @@ public class Cadastro extends javax.swing.JFrame {
             }
         }
         //Caso erro
-        if((chxMedico.isSelected()==true&&chxPaciente.isSelected()==true)||(chxMedico.isSelected()==false&&chxPaciente.isSelected()==false)){
+        else{
             JOptionPane.showMessageDialog(null, "Olá, o Login nao deu certo! Voce deixou ambas opções ativas ou inativas.","ERRO", JOptionPane.ERROR_MESSAGE);
         }
         }catch (Exception ex) {
@@ -220,36 +222,31 @@ public class Cadastro extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_senhaTxtActionPerformed
 
-    private void chxMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chxMedicoActionPerformed
-        // TODO add your handling code here:
-        if(chxMedico.isSelected()==true&&chxPaciente.isSelected()==false){
-            jLabelCRM.setVisible(true);
-            nomeTxt.setVisible(true);
-        }else{
-            jLabelCRM.setVisible(false);
-            jLabelCPF.setVisible(false);
-            nomeTxt.setVisible(false);
-        }
-    }//GEN-LAST:event_chxMedicoActionPerformed
-
-    private void chxPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chxPacienteActionPerformed
-        // TODO add your handling code here:
-        if(chxPaciente.isSelected()==true&&chxMedico.isSelected()==false){
-            jLabelCPF.setVisible(true);
-            nomeTxt.setVisible(true);
-        }else{
-            jLabelCRM.setVisible(false);
-            jLabelCPF.setVisible(false);
-            nomeTxt.setVisible(false);
-        }
-    }//GEN-LAST:event_chxPacienteActionPerformed
-
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
         jLabelCPF.setVisible(false);
         jLabelCRM.setVisible(false);
-        nomeTxt.setVisible(false);
     }//GEN-LAST:event_formWindowOpened
+
+    private void chxPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chxPacienteActionPerformed
+        // TODO add your handling code here:
+        if(chxPaciente.isSelected()){
+            jLabelCPF.setVisible(true);
+            jLabelCRM.setVisible(false);
+        }else{
+            jLabelCPF.setVisible(false);
+        }
+    }//GEN-LAST:event_chxPacienteActionPerformed
+
+    private void chxMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chxMedicoActionPerformed
+        // TODO add your handling code here:
+        if(chxMedico.isSelected()){
+            jLabelCRM.setVisible(true);
+            jLabelCPF.setVisible(false);
+        }else{
+            jLabelCRM.setVisible(false);
+        }
+    }//GEN-LAST:event_chxMedicoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -289,6 +286,7 @@ public class Cadastro extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bntCadastrar;
     private javax.swing.JButton bntLogin;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JCheckBox chxMedico;
     private javax.swing.JCheckBox chxPaciente;
     private javax.swing.JLabel jLabel1;
