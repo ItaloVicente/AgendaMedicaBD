@@ -110,7 +110,27 @@ public class MedicoDAO {
                 ConnectionFactory.closeConnection(con, stmt);
             }
     }
-    
+     public Medico getByCRM(String CRM){
+        
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Medico medico = null;
+        try {
+            stmt = con.prepareStatement("SELECT * FROM medico WHERE crm = ?");
+            stmt.setString(1, CRM);
+            rs = stmt.executeQuery();
+            
+                medico = new Medico(rs.getString("nome"),rs.getString("especialidade"), rs.getString("senha"), rs.getString("crm"));
+                medico.setId(rs.getInt("id_medico"));
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ConsultaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+        return medico;
+    }   
     public ArrayList<Medico> read(){
         
         Connection con = ConnectionFactory.getConnection();

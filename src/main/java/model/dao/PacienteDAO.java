@@ -44,7 +44,28 @@ public class PacienteDAO {
                 ConnectionFactory.closeConnection(con, stmt);
             }
     }
-    
+    public void update(String CPF, String nome, String sexo, String senha, String data_de_nascimento){
+        
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        
+        try {
+            stmt = con.prepareStatement("UPDATE paciente SET nome = ? , sexo = ? , senha = ? , data_de_nascimento = ?  WHERE cpf = ?");
+            stmt.setString(1, nome);
+            stmt.setString(2, sexo);
+            stmt.setString(3, senha);
+            stmt.setString(4, data_de_nascimento);
+            stmt.setString(5, CPF);
+
+            stmt.executeUpdate();
+
+            JOptionPane.showMessageDialog(null,"Atualizado com sucesso");
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null,"Erro ao atualizar: " + ex);
+            }finally{
+                ConnectionFactory.closeConnection(con, stmt);
+            }
+    }   
     public void update(Paciente p){
         
         Connection con = ConnectionFactory.getConnection();
@@ -95,7 +116,29 @@ public class PacienteDAO {
                 ConnectionFactory.closeConnection(con, stmt);
             }
     }
-    
+   public Paciente getByCPF(String CPF){
+        
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Paciente paciente = null;
+        try {
+            stmt = con.prepareStatement("SELECT * FROM paciente WHERE cpf = ?");
+            stmt.setString(1, CPF);
+            rs = stmt.executeQuery();
+                paciente = new Paciente(rs.getString("nome"),rs.getString("data_de_nascimento"), rs.getString("sexo"), rs.getString("senha"), rs.getString("cpf"));
+                paciente.setId(rs.getInt("id_paciente"));
+                
+        } catch (SQLException ex) {
+            Logger.getLogger(ConsultaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+        
+        
+        
+        return paciente;
+    }
     public ArrayList<Paciente> read(){
         
         Connection con = ConnectionFactory.getConnection();
