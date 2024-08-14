@@ -4,7 +4,7 @@ CREATE TABLE consulta ( id_consulta INT NOT NULL AUTO_INCREMENT, id_medico INT, 
 
 CREATE TABLE medico ( id_medico INT NOT NULL AUTO_INCREMENT, nome TEXT, especialidade TEXT, senha TEXT, crm VARCHAR(6) UNIQUE, PRIMARY KEY (id_medico) ); 
 
-CREATE TABLE paciente ( id_paciente INT NOT NULL AUTO_INCREMENT, nome TEXT, sexo TEXT, senha TEXT, data_de_nascimento DATE, cpf VARCHAR(11) UNIQUE, PRIMARY KEY (id_paciente) );
+CREATE TABLE paciente ( id_paciente INT NOT NULL AUTO_INCREMENT, nome TEXT, sexo VARCHAR(1), senha TEXT, data_de_nascimento DATE, cpf VARCHAR(11) UNIQUE, PRIMARY KEY (id_paciente) );
 
 link de como criar a tabela e o banco no NetBeans: https://www.youtube.com/watch?v=EZPYKkPkN4A&list=PLWd_VnthxxLcuMX7LluyGXGYNfWNAFvz2&index=4
 
