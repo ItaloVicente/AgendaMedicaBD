@@ -56,12 +56,12 @@ public class MedicoDAO {
             PreparedStatement stmt = null;
 
             try {
-                stmt = con.prepareStatement("UPDATE medico SET nome = ? , especialidade = ? , senha = ?, crm = ? WHERE id_medico = ?");
+                stmt = con.prepareStatement("UPDATE medico SET nome = ? , especialidade = ? , senha = ?, crm = ? WHERE crm = ?");
                 stmt.setString(1,m.getNome());
                 stmt.setString(2, m.getEspecialidade());
                 stmt.setString(3, m.getSenha());
                 stmt.setString(4, m.getCRM());
-                stmt.setInt(5,m.getId());
+                stmt.setString(5,m.getCRM());
 
                 stmt.executeUpdate();
 
@@ -162,10 +162,10 @@ public class MedicoDAO {
             stmt = con.prepareStatement("SELECT * FROM medico WHERE crm = ?");
             stmt.setString(1, CRM);
             rs = stmt.executeQuery();
-            
+            while(rs.next()){
                 medico = new Medico(rs.getString("nome"),rs.getString("especialidade"), rs.getString("senha"), rs.getString("crm"));
                 medico.setId(rs.getInt("id_medico"));
-            
+           }
         } catch (SQLException ex) {
             Logger.getLogger(ConsultaDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {

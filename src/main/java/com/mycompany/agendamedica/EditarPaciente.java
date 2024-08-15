@@ -49,7 +49,6 @@ public class EditarPaciente extends javax.swing.JFrame {
         jRadioButton2 = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
         senhaPaciente = new javax.swing.JPasswordField();
-        jButton2 = new javax.swing.JButton();
         jPasswordField2 = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
@@ -100,7 +99,7 @@ public class EditarPaciente extends javax.swing.JFrame {
         buttonGroup1.add(jRadioButton1);
         jRadioButton1.setText("Masculino");
         getContentPane().add(jRadioButton1);
-        jRadioButton1.setBounds(330, 320, 77, 21);
+        jRadioButton1.setBounds(330, 320, 78, 21);
 
         buttonGroup1.add(jRadioButton2);
         jRadioButton2.setText("Feminino");
@@ -117,16 +116,6 @@ public class EditarPaciente extends javax.swing.JFrame {
         jLabel1.setBounds(210, 320, 100, 16);
         getContentPane().add(senhaPaciente);
         senhaPaciente.setBounds(330, 272, 160, 30);
-
-        jButton2.setForeground(new java.awt.Color(255, 0, 0));
-        jButton2.setText("Inativar Conta");
-        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton2MouseClicked(evt);
-            }
-        });
-        getContentPane().add(jButton2);
-        jButton2.setBounds(10, 350, 120, 23);
 
         jPasswordField2.setText("jPasswordField2");
         getContentPane().add(jPasswordField2);
@@ -158,7 +147,7 @@ public class EditarPaciente extends javax.swing.JFrame {
         String formattedDate = dateFormat.format(jDateChooser1.getDate());
         String nome = nomePaciente.getText().toUpperCase();
         String senha = senhaPaciente.getText();
-        String sexo = null;
+        String sexo;
         if(jRadioButton1.isSelected())
             sexo = "M";
         else
@@ -192,10 +181,6 @@ public class EditarPaciente extends javax.swing.JFrame {
         else
             jRadioButton2.setSelected(true);
     }//GEN-LAST:event_formWindowOpened
-
-    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
-        
-    }//GEN-LAST:event_jButton2MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -238,7 +223,6 @@ public class EditarPaciente extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;

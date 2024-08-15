@@ -4,11 +4,17 @@
  */
 package com.mycompany.agendamedica;
 
+import javax.swing.JOptionPane;
+import model.dao.MedicoDAO;
+import model.dao.PacienteDAO;
+
 /**
  *
  * @author LUIAN
  */
 public class EditarMedico extends javax.swing.JFrame {
+    private MedicoDAO medicoDAO;
+    private PacienteDAO pacienteDAO;
     private Medico medico;
     /**
      * Creates new form EditarMedico
@@ -16,8 +22,10 @@ public class EditarMedico extends javax.swing.JFrame {
      */
     
     public EditarMedico(Medico medico) {
-        this.medico = medico;
         initComponents();
+        this.medico = medico;
+        medicoDAO = new MedicoDAO();
+        pacienteDAO = new PacienteDAO();
     }
 
     /**
@@ -29,21 +37,103 @@ public class EditarMedico extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        senhaMedico = new javax.swing.JPasswordField();
+        jLabel7 = new javax.swing.JLabel();
+        jButton6 = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        nomeMedico = new javax.swing.JTextField();
+        especialidadeTxt = new javax.swing.JTextField();
+        crmTxt = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(622, 432));
+        setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
+        getContentPane().setLayout(null);
+        getContentPane().add(senhaMedico);
+        senhaMedico.setBounds(330, 272, 160, 30);
+
+        jLabel7.setText("Especialidade");
+        getContentPane().add(jLabel7);
+        jLabel7.setBounds(210, 320, 100, 16);
+
+        jButton6.setText("Atualizar");
+        jButton6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton6MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton6MouseEntered(evt);
+            }
+        });
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton6);
+        jButton6.setBounds(210, 350, 100, 23);
+
+        jLabel8.setText("Senha");
+        getContentPane().add(jLabel8);
+        jLabel8.setBounds(210, 280, 37, 16);
+
+        jLabel9.setText("CRM");
+        getContentPane().add(jLabel9);
+        jLabel9.setBounds(210, 240, 110, 16);
+
+        jLabel10.setText("Nome");
+        getContentPane().add(jLabel10);
+        jLabel10.setBounds(210, 190, 33, 16);
+        getContentPane().add(nomeMedico);
+        nomeMedico.setBounds(330, 182, 160, 30);
+        getContentPane().add(especialidadeTxt);
+        especialidadeTxt.setBounds(330, 310, 160, 30);
+        getContentPane().add(crmTxt);
+        crmTxt.setBounds(330, 232, 160, 30);
+
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mycompany/blackkk.png"))); // NOI18N
+        getContentPane().add(jLabel6);
+        jLabel6.setBounds(0, 0, 930, 740);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
+        Medico m = new Medico(nomeMedico.getText(), especialidadeTxt.getText(), senhaMedico.getText(), crmTxt.getText());
+        String medicoPass = JOptionPane.showInputDialog("Insira sua senha para confirmar a operacao: ");
+            if(medicoPass.equals(medico.getSenha())){
+                String senhaADM = JOptionPane.showInputDialog("Insira a senha de administrador: ");
+                medicoDAO.update(m, senhaADM);
+                JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
+            }else{
+                JOptionPane.showMessageDialog(null, "Senha invalida! Faca a operacao novamente");
+            }
+        
+    }//GEN-LAST:event_jButton6MouseClicked
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        Medico m = medicoDAO.getByCRM(medico.getCRM());
+        nomeMedico.setText(m.getNome());
+        senhaMedico.setText(m.getSenha());
+        crmTxt.setText(m.getCRM());
+        especialidadeTxt.setText(m.getEspecialidade());
+    }//GEN-LAST:event_formWindowOpened
+
+    private void jButton6MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton6MouseEntered
 
     /**
      * @param args the command line arguments
@@ -76,5 +166,15 @@ public class EditarMedico extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField crmTxt;
+    private javax.swing.JTextField especialidadeTxt;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JTextField nomeMedico;
+    private javax.swing.JPasswordField senhaMedico;
     // End of variables declaration//GEN-END:variables
 }
