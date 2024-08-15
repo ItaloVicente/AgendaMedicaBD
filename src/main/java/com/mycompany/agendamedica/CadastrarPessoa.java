@@ -3,16 +3,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.agendamedica;
-import java.io.IOException;
-import java.text.ParseException;
+import java.awt.HeadlessException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.dao.MedicoDAO;
 import model.dao.PacienteDAO;
 import model.dao.TelefoneDAO;
+import com.mycompany.agendamedica.Telefone;
 
 /**
  *
@@ -36,6 +35,8 @@ public class CadastrarPessoa extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -50,14 +51,15 @@ public class CadastrarPessoa extends javax.swing.JFrame {
         lblConfirmarSenha = new javax.swing.JLabel();
         lblSexo = new javax.swing.JLabel();
         lblEspecialidade = new javax.swing.JLabel();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
         cpfTxt = new javax.swing.JTextField();
         nomeTxt = new javax.swing.JTextField();
         senhaTxt = new javax.swing.JTextField();
         confirmarTxt = new javax.swing.JTextField();
         especialidadeTxt = new javax.swing.JTextField();
-        dataTxt = new javax.swing.JTextField();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
         crmTxt = new javax.swing.JTextField();
-        sexoTxt = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -94,6 +96,8 @@ public class CadastrarPessoa extends javax.swing.JFrame {
         getContentPane().add(jLabel1);
         jLabel1.setBounds(290, 0, 303, 40);
 
+        buttonGroup2.add(cbxPaciente);
+        cbxPaciente.setSelected(true);
         cbxPaciente.setText("Paciente");
         cbxPaciente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -115,6 +119,7 @@ public class CadastrarPessoa extends javax.swing.JFrame {
         getContentPane().add(jLabelCRM);
         jLabelCRM.setBounds(170, 330, 50, 16);
 
+        buttonGroup2.add(cbxMedico);
         cbxMedico.setText("Medico");
         cbxMedico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -130,7 +135,7 @@ public class CadastrarPessoa extends javax.swing.JFrame {
 
         lblData.setText("Data de nascimento:");
         getContentPane().add(lblData);
-        lblData.setBounds(170, 280, 120, 16);
+        lblData.setBounds(170, 280, 150, 16);
 
         lblSenha.setText("Senha:");
         getContentPane().add(lblSenha);
@@ -138,7 +143,7 @@ public class CadastrarPessoa extends javax.swing.JFrame {
 
         lblConfirmarSenha.setText("Confirmar senha:");
         getContentPane().add(lblConfirmarSenha);
-        lblConfirmarSenha.setBounds(170, 230, 91, 16);
+        lblConfirmarSenha.setBounds(170, 230, 120, 16);
 
         lblSexo.setText("Sexo:");
         getContentPane().add(lblSexo);
@@ -146,7 +151,11 @@ public class CadastrarPessoa extends javax.swing.JFrame {
 
         lblEspecialidade.setText("Especialidade:");
         getContentPane().add(lblEspecialidade);
-        lblEspecialidade.setBounds(170, 280, 74, 16);
+        lblEspecialidade.setBounds(170, 280, 130, 16);
+
+        jDateChooser1.setDateFormatString("dd/MM/yy");
+        getContentPane().add(jDateChooser1);
+        jDateChooser1.setBounds(340, 270, 160, 22);
 
         cpfTxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -154,13 +163,13 @@ public class CadastrarPessoa extends javax.swing.JFrame {
             }
         });
         getContentPane().add(cpfTxt);
-        cpfTxt.setBounds(310, 360, 400, 30);
+        cpfTxt.setBounds(340, 360, 370, 30);
         getContentPane().add(nomeTxt);
-        nomeTxt.setBounds(310, 130, 403, 22);
+        nomeTxt.setBounds(343, 122, 370, 30);
         getContentPane().add(senhaTxt);
-        senhaTxt.setBounds(310, 172, 403, 30);
+        senhaTxt.setBounds(343, 172, 370, 30);
         getContentPane().add(confirmarTxt);
-        confirmarTxt.setBounds(310, 222, 403, 30);
+        confirmarTxt.setBounds(343, 222, 370, 30);
 
         especialidadeTxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -168,26 +177,20 @@ public class CadastrarPessoa extends javax.swing.JFrame {
             }
         });
         getContentPane().add(especialidadeTxt);
-        especialidadeTxt.setBounds(310, 270, 403, 30);
+        especialidadeTxt.setBounds(343, 270, 370, 30);
 
-        dataTxt.setText("dd/mm/aa");
-        dataTxt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dataTxtActionPerformed(evt);
-            }
-        });
-        getContentPane().add(dataTxt);
-        dataTxt.setBounds(310, 272, 403, 30);
+        buttonGroup1.add(jRadioButton1);
+        jRadioButton1.setSelected(true);
+        jRadioButton1.setText("Masculino");
+        getContentPane().add(jRadioButton1);
+        jRadioButton1.setBounds(330, 330, 78, 21);
+
+        buttonGroup1.add(jRadioButton2);
+        jRadioButton2.setText("Feminino");
+        getContentPane().add(jRadioButton2);
+        jRadioButton2.setBounds(450, 330, 73, 21);
         getContentPane().add(crmTxt);
-        crmTxt.setBounds(310, 320, 400, 30);
-
-        sexoTxt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sexoTxtActionPerformed(evt);
-            }
-        });
-        getContentPane().add(sexoTxt);
-        sexoTxt.setBounds(310, 312, 403, 30);
+        crmTxt.setBounds(340, 320, 370, 30);
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mycompany/blackkk.png"))); // NOI18N
         getContentPane().add(jLabel3);
@@ -205,94 +208,71 @@ public class CadastrarPessoa extends javax.swing.JFrame {
 
     private void cbxPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxPacienteActionPerformed
         // TODO add your handling code here:
-        if(cbxPaciente.isSelected()==true&&cbxMedico.isSelected()==false){
+
             lblData.setVisible(true);
-            dataTxt.setVisible(true);
+            jDateChooser1.setVisible(true);
             lblSexo.setVisible(true);
-            sexoTxt.setVisible(true);
+            jRadioButton1.setVisible(true);
+            jRadioButton2.setVisible(true);
             cpfTxt.setVisible(true);
             jLabelCPF.setVisible(true);
-        }
-        else{
-            lblData.setVisible(false);
-            dataTxt.setVisible(false);
-            lblSexo.setVisible(false);
-            sexoTxt.setVisible(false);
-            cpfTxt.setVisible(false);
-            jLabelCPF.setVisible(false);
             lblEspecialidade.setVisible(false);
             especialidadeTxt.setVisible(false);
             crmTxt.setVisible(false);
             jLabelCRM.setVisible(false);
-        }
     }//GEN-LAST:event_cbxPacienteActionPerformed
 
     private void cbxMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxMedicoActionPerformed
         // TODO add your handling code here:
-        if(cbxMedico.isSelected()==true&&cbxPaciente.isSelected()==false){
+
             lblEspecialidade.setVisible(true);
             especialidadeTxt.setVisible(true);
             crmTxt.setVisible(true);
             jLabelCRM.setVisible(true);
-        }
-        else{
-            lblEspecialidade.setVisible(false);
-            especialidadeTxt.setVisible(false);
-            crmTxt.setVisible(false);
-            jLabelCRM.setVisible(false);
             lblData.setVisible(false);
-            dataTxt.setVisible(false);
+            jDateChooser1.setVisible(false);
             lblSexo.setVisible(false);
-            sexoTxt.setVisible(false);
+            jRadioButton1.setVisible(false);
+            jRadioButton2.setVisible(false);
             cpfTxt.setVisible(false);
             jLabelCPF.setVisible(false);
-        }
+        
     }//GEN-LAST:event_cbxMedicoActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
         lblEspecialidade.setVisible(false);
         especialidadeTxt.setVisible(false);
-        lblData.setVisible(false);
-        dataTxt.setVisible(false);
-        lblSexo.setVisible(false);
-        sexoTxt.setVisible(false);
         jLabelCRM.setVisible(false);
-        jLabelCPF.setVisible(false);
         crmTxt.setVisible(false);
-        cpfTxt.setVisible(false);
     }//GEN-LAST:event_formWindowOpened
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         PacienteDAO daop = new PacienteDAO();
         MedicoDAO daom = new MedicoDAO();
+        TelefoneDAO daot = new TelefoneDAO();
         //Caso cadastro paciente
-        if(cbxPaciente.isSelected()==true && cbxMedico.isSelected()==false){
+        if(cbxPaciente.isSelected()){
             String nome = nomeTxt.getText().toUpperCase();
             String senha = senhaTxt.getText();
             String confirmar = confirmarTxt.getText();
-            String data_nascimento = dataTxt.getText();
-            String sexo = sexoTxt.getText().toUpperCase();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yy/MM/dd");
+            String formattedDate = dateFormat.format(jDateChooser1.getDate());
+            String sexo;
+            if(jRadioButton1.isSelected())
+                sexo = "M";
+            else
+                sexo = "F";
             String cpf = cpfTxt.getText();
             boolean verificador = false;
             if(daop.checkLogin(cpf, senha) == true){
                 verificador=true;
                 JOptionPane.showMessageDialog(null, "Usuário ja cadastrado");
             }
-            String[] vetorData = data_nascimento.split("(?!^)");
-            
-            if(verificador==false&&senha.equals(confirmar)==true&&vetorData.length==8){
-                SimpleDateFormat formatoOriginal = new SimpleDateFormat("dd/MM/yy");
-                SimpleDateFormat formatoDesejado = new SimpleDateFormat("yy/MM/dd");
-                Date data;
-                TelefoneDAO daot = new TelefoneDAO();
+            if(verificador==false&&senha.equals(confirmar)==true){
                 try {
-                    // Parse a data original para um objeto Date
-                    data = formatoOriginal.parse(data_nascimento);
-                    // Formate a data para o formato desejado
-                    String dataFormatada = formatoDesejado.format(data);
-                    Paciente paciente = new Paciente(nome,dataFormatada,sexo,senha,cpf);
+                    Paciente paciente = new Paciente(nome,formattedDate,sexo,senha,cpf);
                     daop.create(paciente);
                     Paciente pacienteCriado = daop.returnkLogin(cpf, senha);
                     while (true){
@@ -330,7 +310,7 @@ public class CadastrarPessoa extends javax.swing.JFrame {
                             JOptionPane.showMessageDialog(null, "Olá, telefone inválido formato: 859NNNNNNNN");
                         }
                     }
-                } catch (ParseException ex) {
+                } catch (HeadlessException ex) {
                     Logger.getLogger(CadastrarPessoa.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
@@ -342,7 +322,7 @@ public class CadastrarPessoa extends javax.swing.JFrame {
             }
         }
         //Caso cadastro medico
-        if(cbxPaciente.isSelected()==false&&cbxMedico.isSelected()==true){
+        else{
             String nome = nomeTxt.getText().toUpperCase();
             String senha = senhaTxt.getText();
             String confirmar = confirmarTxt.getText();
@@ -364,23 +344,12 @@ public class CadastrarPessoa extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Olá, o Cadastro não deu certo! senhas nao batem.","ERRO", JOptionPane.ERROR_MESSAGE);
             }
         }
-        //Caso a pessoa tenha deixado os dois cbx ligados
-        if((cbxPaciente.isSelected()==true&&cbxMedico.isSelected()==true)||(cbxMedico.isSelected()==false&&cbxPaciente.isSelected()==false)){
-            JOptionPane.showMessageDialog(null, "Olá, o Cadastro não deu certo! Voce deixou ambas opções ativas ou inativas.","ERRO", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void dataTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dataTxtActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_dataTxtActionPerformed
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void cpfTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cpfTxtActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cpfTxtActionPerformed
-
-    private void sexoTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sexoTxtActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_sexoTxtActionPerformed
 
     private void especialidadeTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_especialidadeTxtActionPerformed
         // TODO add your handling code here:
@@ -422,20 +391,24 @@ public class CadastrarPessoa extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JCheckBox cbxMedico;
     private javax.swing.JCheckBox cbxPaciente;
     private javax.swing.JTextField confirmarTxt;
     private javax.swing.JTextField cpfTxt;
     private javax.swing.JTextField crmTxt;
-    private javax.swing.JTextField dataTxt;
     private javax.swing.JTextField especialidadeTxt;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabelCPF;
     private javax.swing.JLabel jLabelCRM;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JLabel lblConfirmarSenha;
     private javax.swing.JLabel lblData;
     private javax.swing.JLabel lblEspecialidade;
@@ -444,6 +417,5 @@ public class CadastrarPessoa extends javax.swing.JFrame {
     private javax.swing.JLabel lblSexo;
     private javax.swing.JTextField nomeTxt;
     private javax.swing.JTextField senhaTxt;
-    private javax.swing.JTextField sexoTxt;
     // End of variables declaration//GEN-END:variables
 }

@@ -142,6 +142,7 @@ public class Cadastro extends javax.swing.JFrame {
         chxMedico.setBounds(290, 70, 85, 20);
 
         buttonGroup1.add(chxPaciente);
+        chxPaciente.setSelected(true);
         chxPaciente.setText("Paciente");
         chxPaciente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -224,7 +225,6 @@ public class Cadastro extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-        jLabelCPF.setVisible(false);
         jLabelCRM.setVisible(false);
     }//GEN-LAST:event_formWindowOpened
 
