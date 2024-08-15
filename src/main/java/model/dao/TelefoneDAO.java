@@ -5,6 +5,7 @@
 package model.dao;
 
 
+
 import com.mycompany.agendamedica.Telefone;
 import connection.ConnectionFactory;
 import java.sql.Connection;
@@ -12,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -69,4 +71,42 @@ public class TelefoneDAO {
         
         return telefones;
     }
+    //deletar pelo int id_telefone
+    public void delete(int t){
+        
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        
+        try {
+            stmt = con.prepareStatement("DELETE FROM telefone WHERE id_telefone = ?");
+            stmt.setInt(1, t);
+
+            stmt.executeUpdate();
+
+            JOptionPane.showMessageDialog(null,"Excluido com sucesso");
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null,"Erro ao excluir: " + ex);
+            }finally{
+                ConnectionFactory.closeConnection(con, stmt);
+            }
+    }
+    
+   public void update(int id, String telefone){
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        
+        try {
+            stmt = con.prepareStatement("UPDATE telefone SET telefone = ? WHERE id_telefone = ?");
+            stmt.setString(1,telefone);
+            stmt.setInt(2,id);
+
+            stmt.executeUpdate();
+
+            JOptionPane.showMessageDialog(null,"Atualizado com sucesso");
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null,"Erro ao atualizar: " + ex);
+            }finally{
+                ConnectionFactory.closeConnection(con, stmt);
+            }
+   }
 }

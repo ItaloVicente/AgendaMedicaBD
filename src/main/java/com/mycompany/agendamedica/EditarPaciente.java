@@ -50,8 +50,9 @@ public class EditarPaciente extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         senhaPaciente = new javax.swing.JPasswordField();
         jButton2 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
         jPasswordField2 = new javax.swing.JPasswordField();
+        jButton1 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("ATUALIZAR PACIENTE");
@@ -127,13 +128,22 @@ public class EditarPaciente extends javax.swing.JFrame {
         getContentPane().add(jButton2);
         jButton2.setBounds(10, 350, 120, 23);
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mycompany/blackkk.png"))); // NOI18N
-        getContentPane().add(jLabel3);
-        jLabel3.setBounds(0, 0, 930, 740);
-
         jPasswordField2.setText("jPasswordField2");
         getContentPane().add(jPasswordField2);
         jPasswordField2.setBounds(330, 272, 160, 30);
+
+        jButton1.setText("Telefone");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1);
+        jButton1.setBounds(430, 350, 90, 23);
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mycompany/blackkk.png"))); // NOI18N
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(0, 0, 930, 740);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -187,6 +197,13 @@ public class EditarPaciente extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton2MouseClicked
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        GerenciarTelefone frame = new GerenciarTelefone();
+        frame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -220,6 +237,7 @@ public class EditarPaciente extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private com.toedter.calendar.JDateChooser jDateChooser1;

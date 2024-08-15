@@ -295,15 +295,24 @@ public class CadastrarPessoa extends javax.swing.JFrame {
                     Paciente paciente = new Paciente(nome,dataFormatada,sexo,senha,cpf);
                     daop.create(paciente);
                     Paciente pacienteCriado = daop.returnkLogin(cpf, senha);
+                    String telefone = JOptionPane.showInputDialog("Cadastre um telefone");
+                    String[] vetortelefone = telefone.split("(?!^)");
+
+                    if (vetortelefone.length == 11) {
+                        Telefone t = new Telefone(telefone, pacienteCriado.getId());
+                        daot.create(t);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Olá, telefone inválido formato: 00123456789");
+                    }
                     while (true) {
-                        String telefone = JOptionPane.showInputDialog("Cadastre um telefone (Aperte Ok caso nao queira registrar mais telefones)");
+                        telefone = JOptionPane.showInputDialog("Se quiser, cadestre outro telefone (Aperte Ok caso nao queira registrar mais telefones)");
 
                         if (telefone == null || telefone.isEmpty()) {
                             // Se o telefone for null (usuário clicou em "Cancelar") ou vazio (usuário clicou em "Ok" sem digitar nada)
                             break;
                         }
 
-                        String[] vetortelefone = telefone.split("(?!^)");
+                        vetortelefone = telefone.split("(?!^)");
 
                         if (vetortelefone.length == 11) {
                             Telefone t = new Telefone(telefone, pacienteCriado.getId());
