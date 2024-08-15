@@ -1,6 +1,6 @@
 Comando para criar a tabela MySQL:
 
-CREATE TABLE consulta ( id_consulta INT NOT NULL AUTO_INCREMENT, id_medico INT, id_paciente INT, data_consulta DATE, horário TIME, descrição TEXT, nota DOUBLE, status TEXT, PRIMARY KEY (id_consulta), FOREIGN KEY (id_medico) REFERENCES medico(id_medico), FOREIGN KEY (id_paciente) REFERENCES paciente(id_paciente) ); 
+CREATE TABLE consulta ( id_consulta INT NOT NULL AUTO_INCREMENT, id_medico INT, id_paciente INT, data_consulta DATE, horario TIME, descricao TEXT, nota DOUBLE, status TEXT, PRIMARY KEY (id_consulta), FOREIGN KEY (id_medico) REFERENCES medico(id_medico), FOREIGN KEY (id_paciente) REFERENCES paciente(id_paciente) ); 
 
 CREATE TABLE medico ( id_medico INT NOT NULL AUTO_INCREMENT, nome TEXT, especialidade TEXT, senha TEXT, crm VARCHAR(6) UNIQUE, ativo BOOLEAN DEFAULT 1, PRIMARY KEY (id_medico) ); 
 
