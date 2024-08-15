@@ -135,7 +135,7 @@ public class AgendarConsulta extends javax.swing.JFrame {
         getContentPane().add(dataTxt);
         dataTxt.setBounds(560, 110, 114, 22);
 
-        chxHora.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "8:00:00", "9:00:00", "10:00:00", "11:00:00" }));
+        chxHora.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "08:00:00", "09:00:00", "10:00:00", "11:00:00" }));
         getContentPane().add(chxHora);
         chxHora.setBounds(560, 140, 114, 22);
 
@@ -192,12 +192,16 @@ public class AgendarConsulta extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        int row = jtConsultas.getSelectedRow();
+        if(row==-1){
+            JOptionPane.showMessageDialog(null, "Selecione uma linha!");
+        }
+        else{
         try {
             // TODO add your handling code here:
             Paciente paciente = Cadastro.getPaciente();
             MedicoDAO daom = new MedicoDAO();
             ConsultaDAO daoc = new ConsultaDAO();
-            int row = jtConsultas.getSelectedRow();
             DefaultTableModel dtmConsultas = (DefaultTableModel) jtConsultas.getModel();
             String hora = (String) chxHora.getSelectedItem();
             String nomeMedico = (String) dtmConsultas.getValueAt(row, 0);
@@ -209,18 +213,20 @@ public class AgendarConsulta extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Olá, datas inseridas inválidas!");
                 verificadorData=true;
             }
+            else{
             String[] vetorData = data.split("(?!^)");
-            Date dataBox;
-            SimpleDateFormat formatoOriginalBox = new SimpleDateFormat("dd-MM-yyyy");
-            SimpleDateFormat formatoDesejadoBox = new SimpleDateFormat("yyyy-MM-dd");
-            dataBox = formatoOriginalBox.parse(data);
-            data = formatoDesejadoBox.format(dataBox);
             boolean verificadorMesmoDia = false;
-            if(vetorData.length!=10){
+            if(vetorData.length!=10 || data.contains("/")){
                 JOptionPane.showMessageDialog(null, "Olá, datas inseridas inválidas!");
                 verificadorData = true;
             }
-            ArrayList<Consulta> consultasPaciente = paciente.getConsultas();
+            else{
+                Date dataBox;
+                SimpleDateFormat formatoOriginalBox = new SimpleDateFormat("dd-MM-yyyy");
+                SimpleDateFormat formatoDesejadoBox = new SimpleDateFormat("yyyy-MM-dd");
+                dataBox = formatoOriginalBox.parse(data);
+                data = formatoDesejadoBox.format(dataBox);
+                ArrayList<Consulta> consultasPaciente = paciente.getConsultas();
             ArrayList<Consulta> consultasListaEsperaPaciente = paciente.getListaEspera();
             for(Consulta consultaPaciente : consultasPaciente){
                 if(consultaPaciente.getData().equals(data)&&consultaPaciente.getHorario().equals(hora)){
@@ -309,7 +315,7 @@ public class AgendarConsulta extends javax.swing.JFrame {
                             }else{
                                 for(int x =0;x<consultas.size();x++){
                                 Consulta consulta4 = consultas.get(x);
-                                
+
                                 if(consulta4.getData().equals(data)&&consulta4.getHorario().equals(hora)){
                                     verificador2=true;
                                     JOptionPane.showMessageDialog(null, "Olá, infelizmente o médico está com uma consulta nesse horario, mas ainda possui horarios vagos nesse dia, se quiser altere a hora.","ERRO", JOptionPane.ERROR_MESSAGE);
@@ -331,8 +337,11 @@ public class AgendarConsulta extends javax.swing.JFrame {
             }else{
                 JOptionPane.showMessageDialog(null, "Voce ja possui uma consulta marcada ou na espera para esse dia");
             }
+            }
+            }
         } catch (ParseException ex) {
             Logger.getLogger(AgendarConsulta.class.getName()).log(Level.SEVERE, null, ex);
+        }
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 

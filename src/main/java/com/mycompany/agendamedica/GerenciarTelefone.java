@@ -141,11 +141,15 @@ public class GerenciarTelefone extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         int row = jtTelefones.getSelectedRow();
+        if(row==-1){
+            JOptionPane.showMessageDialog(null, "Selecione uma linha!");
+        }
+        else{
         DefaultTableModel dtmConsultas = (DefaultTableModel) jtTelefones.getModel();
         int id_telefone = (Integer) dtmConsultas.getValueAt(row,1);
         TelefoneDAO daot = new TelefoneDAO();
         daot.delete(id_telefone);
-      
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -206,8 +210,12 @@ public class GerenciarTelefone extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        TelefoneDAO daot = new TelefoneDAO();
         int row = jtTelefones.getSelectedRow();
+        if(row==-1){
+            JOptionPane.showMessageDialog(null, "Selecione uma linha!");
+        }
+        else{
+        TelefoneDAO daot = new TelefoneDAO();
         DefaultTableModel dtmConsultas = (DefaultTableModel) jtTelefones.getModel();
         int id_telefone = (Integer) dtmConsultas.getValueAt(row,1);
         String telefone = JOptionPane.showInputDialog("Insira o novo telefone");
@@ -217,6 +225,7 @@ public class GerenciarTelefone extends javax.swing.JFrame {
             }else {
                JOptionPane.showMessageDialog(null, "Olá, telefone inválido formato: 00123456789");
             }
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**

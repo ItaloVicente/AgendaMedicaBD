@@ -242,8 +242,12 @@ public class GerarRelatorioMedico extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        TelefoneDAO daot = new TelefoneDAO();
         int row = jtConsultas.getSelectedRow();
+        if(row==-1){
+            JOptionPane.showMessageDialog(null, "Selecione uma linha!");
+        }
+        else{
+        TelefoneDAO daot = new TelefoneDAO();
         DefaultTableModel dtmConsultas = (DefaultTableModel) jtConsultas.getModel();
         int id_paciente = (Integer) dtmConsultas.getValueAt(row,4);
         ArrayList<Telefone> telefones = daot.read(id_paciente);
@@ -256,6 +260,7 @@ public class GerarRelatorioMedico extends javax.swing.JFrame {
                 }
                 JOptionPane.showMessageDialog(null, mensagem.toString());
             }
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**

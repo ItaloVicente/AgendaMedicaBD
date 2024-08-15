@@ -132,9 +132,13 @@ public class AvaliarConsulta extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        int row = jtConsultas.getSelectedRow();
+        if(row==-1){
+            JOptionPane.showMessageDialog(null, "Selecione uma linha!");
+        }
+        else{
         MedicoDAO daom = new MedicoDAO();
         DefaultTableModel dtmConsultas = (DefaultTableModel) jtConsultas.getModel();
-        int row = jtConsultas.getSelectedRow();
         ConsultaDAO daoc = new ConsultaDAO();
         Paciente paciente = Cadastro.getPaciente();
         ArrayList<Consulta> consultasParaAvaliar = paciente.getAvaliarConsultas();
@@ -160,7 +164,7 @@ public class AvaliarConsulta extends javax.swing.JFrame {
             }
         }
         paciente.resetAvaliarConsultas();
-        
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
