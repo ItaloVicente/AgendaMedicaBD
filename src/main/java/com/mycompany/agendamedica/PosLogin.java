@@ -218,7 +218,7 @@ public class PosLogin extends javax.swing.JFrame {
                 this.dispose();
             }
             else if(chxRealizar.isSelected()==false&&chxGerar.isSelected()==true&&chxCancelar.isSelected()==false&&chxAgendar.isSelected()==false){
-                GerarRelatorio frame = new GerarRelatorio();
+                GerarRelatorioMedico frame = new GerarRelatorioMedico();
                 frame.setVisible(true);
                 this.dispose();
             }

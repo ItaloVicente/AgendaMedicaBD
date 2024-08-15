@@ -292,6 +292,7 @@ public class ConsultaDAO {
         }
         return consultas;
     }
+    
     public ArrayList<Consulta> getConsultasAvaliadas(int id){
         ArrayList<Consulta> consultas = new ArrayList<>();
         try (Connection conn = ConnectionFactory.getConnection();

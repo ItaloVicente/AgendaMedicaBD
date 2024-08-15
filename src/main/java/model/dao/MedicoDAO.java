@@ -81,6 +81,16 @@ public class MedicoDAO {
         
             Connection con = ConnectionFactory.getConnection();
             PreparedStatement stmt = null;
+            
+            ConsultaDAO daoc = new ConsultaDAO();
+            List<Consulta> consultas = daoc.getIdMedico(m.getId());
+            for(Consulta consulta : consultas){
+                if(consulta.getIdMedico() == m.getId()){
+                    if(consulta.getStatus().equals("marcada")==true || consulta.getStatus().equals("espera")){
+                        daoc.delete(consulta);
+                    }
+                }
+            }
 
             try {
                 stmt = con.prepareStatement("UPDATE medico SET nome = ? , especialidade = ? , senha = ?, crm = ?, ativo = ? WHERE id_medico = ?");
@@ -191,6 +201,35 @@ public class MedicoDAO {
         
         return medicos;
     }
+    public ArrayList<Medico> readAtivos(){
+        
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        ArrayList<Medico> medicos = new ArrayList<>();
+        try {
+            stmt = con.prepareStatement("SELECT * FROM medico");
+            rs = stmt.executeQuery();
+            
+            while(rs.next()){
+                if(rs.getBoolean("ativo")){
+                Medico medico = new Medico(rs.getString("nome"),rs.getString("especialidade"), rs.getString("senha"), rs.getString("crm"));
+                medico.setId(rs.getInt("id_medico"));
+                medicos.add(medico);
+                }
+                
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ConsultaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+        
+        
+        
+        return medicos;
+    }
     
     public ArrayList<Medico> readForNome(String nome){
         
@@ -234,11 +273,12 @@ public class MedicoDAO {
             rs = stmt.executeQuery();
             
             while(rs.next()){
-                
-                Medico medico = new Medico(rs.getString("nome"),rs.getString("especialidade"), rs.getString("senha"), rs.getString("crm"));
-                medico.setId(rs.getInt("id_medico"));
-                medicos.add(medico);
-                
+                if(rs.getBoolean("ativo")){
+                    Medico medico = new Medico(rs.getString("nome"),rs.getString("especialidade"), rs.getString("senha"), rs.getString("crm"));
+                    medico.setId(rs.getInt("id_medico"));
+                    medicos.add(medico);
+                }
+ 
             }
             
         } catch (SQLException ex) {
@@ -251,7 +291,7 @@ public class MedicoDAO {
         
         return medicos;
     }
-    public ArrayList<Medico> readForEspecialidade(String senha){
+    public ArrayList<Medico> readForSenha(String senha){
         
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
@@ -259,7 +299,7 @@ public class MedicoDAO {
         ArrayList<Medico> medicos = new ArrayList<>();
         try {
             stmt = con.prepareStatement("SELECT * FROM medico WHERE senha LIKE ?");
-            stmt.setString(3, "%"+senha+"%");
+            stmt.setString(3, senha);
             rs = stmt.executeQuery();
             
             while(rs.next()){
@@ -293,8 +333,9 @@ public class MedicoDAO {
             rs = stmt.executeQuery();
             
             if(rs.next()){
-                
-                verificador = true;
+                if(rs.getBoolean("ativo")){
+                    verificador = true;
+                }
                 
             }
             

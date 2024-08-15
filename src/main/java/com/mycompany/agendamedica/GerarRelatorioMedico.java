@@ -18,17 +18,18 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.dao.MedicoDAO;
 import model.dao.PacienteDAO;
+import model.dao.TelefoneDAO;
 
 /**
  *
  * @author super
  */
-public class GerarRelatorio extends javax.swing.JFrame {
+public class GerarRelatorioMedico extends javax.swing.JFrame {
 
     /**
      * Creates new form GerarRelatorio
      */
-    public GerarRelatorio() {
+    public GerarRelatorioMedico() {
         initComponents();
     }
 
@@ -51,6 +52,7 @@ public class GerarRelatorio extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jtConsultas = new javax.swing.JTable();
         jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -82,14 +84,14 @@ public class GerarRelatorio extends javax.swing.JFrame {
         getContentPane().add(dataFinalTxt);
         dataFinalTxt.setBounds(550, 150, 102, 22);
 
-        jButton1.setText("Ok");
+        jButton1.setText("Pesquisar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(220, 610, 72, 23);
+        jButton1.setBounds(710, 130, 90, 23);
 
         jButton2.setText("Voltar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -110,7 +112,7 @@ public class GerarRelatorio extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nome Medico", "Nome Paciente", "Data", "Horario"
+                "Nome Medico", "Nome Paciente", "Data", "Horario", "Id_Paciente"
             }
         ));
         jtConsultas.getTableHeader().setResizingAllowed(false);
@@ -127,7 +129,16 @@ public class GerarRelatorio extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton3);
-        jButton3.setBounds(390, 610, 72, 23);
+        jButton3.setBounds(470, 610, 72, 23);
+
+        jButton4.setText("Ok");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton4);
+        jButton4.setBounds(340, 610, 72, 23);
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mycompany/blackkk.png"))); // NOI18N
         getContentPane().add(jLabel4);
@@ -153,8 +164,8 @@ public class GerarRelatorio extends javax.swing.JFrame {
         }
         MedicoDAO daom = new MedicoDAO();
         PacienteDAO daop = new PacienteDAO();
-        if(Cadastro.getMedico()==null&&Cadastro.getPaciente()!=null){
-            Paciente paciente = Cadastro.getPaciente();
+        if(Cadastro.getMedico()!=null&&Cadastro.getPaciente()==null){
+            Medico medico = Cadastro.getMedico();
             String dataInicial = dataInicialTxt.getText();
             String dataFinal = dataFinalTxt.getText();
             String[] vetorDataInicial = dataInicial.split("(?!^)");
@@ -165,7 +176,7 @@ public class GerarRelatorio extends javax.swing.JFrame {
             else{
             ArrayList<Consulta> consultas;
                 try {
-                    consultas = paciente.gerarRelatorio(dataInicial, dataFinal);
+                    consultas = medico.gerarRelatorio(dataInicial, dataFinal);
                     if(consultas.size()>0){
                     for(Consulta consulta:consultas){
                         Date data;
@@ -174,18 +185,18 @@ public class GerarRelatorio extends javax.swing.JFrame {
                         SimpleDateFormat formatoDesejado = new SimpleDateFormat("dd-MM-yyyy");
                         data = formatoOriginal.parse(consulta.getData());
                         String dataFormatada = formatoDesejado.format(data);
-                        Object[] dados = {daom.returnMedico(consulta.getIdMedico()).getNome(),daop.returnPaciente(consulta.getIdPaciente()).getNome(),dataFormatada,consulta.getHorario()};
+                        Object[] dados = {daom.returnMedico(consulta.getIdMedico()).getNome(),daop.returnPaciente(consulta.getIdPaciente()).getNome(),dataFormatada,consulta.getHorario(),daop.returnPaciente(consulta.getIdPaciente()).getId()};
                         dtmConsultas.addRow(dados);
                     }
-                    }else{
-                        JOptionPane.showMessageDialog(null, "Voce nao possui consultas no periodo informado.");
-                    }
+            }else{
+                            JOptionPane.showMessageDialog(null, "Voce nao possui consultas no periodo informado.");
+                            }
                 } catch (ParseException ex) {
                     Logger.getLogger(GerarRelatorio.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            
         }
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -203,10 +214,10 @@ public class GerarRelatorio extends javax.swing.JFrame {
         // TODO add your handling code here:
         MedicoDAO daom = new MedicoDAO();
         PacienteDAO daop = new PacienteDAO();
-        if(Cadastro.getMedico()==null&&Cadastro.getPaciente()!=null){
-            Paciente paciente = Cadastro.getPaciente();
+        if(Cadastro.getMedico()!=null&&Cadastro.getPaciente()==null){
+            Medico medico = Cadastro.getMedico();
             ArrayList<Consulta> consultas;
-            consultas = paciente.getConsultas();
+            consultas = medico.getConsultas();
             if(consultas.size()>0){
                     for(Consulta consulta:consultas){
                         try {
@@ -216,18 +227,36 @@ public class GerarRelatorio extends javax.swing.JFrame {
                             SimpleDateFormat formatoDesejado = new SimpleDateFormat("dd-MM-yyyy");
                             data = formatoOriginal.parse(consulta.getData());
                             String dataFormatada = formatoDesejado.format(data);
-                            Object[] dados = {daom.returnMedico(consulta.getIdMedico()).getNome(),daop.returnPaciente(consulta.getIdPaciente()).getNome(),dataFormatada,consulta.getHorario()};
+                            Object[] dados = {daom.returnMedico(consulta.getIdMedico()).getNome(),daop.returnPaciente(consulta.getIdPaciente()).getNome(),dataFormatada,consulta.getHorario(),daop.returnPaciente(consulta.getIdPaciente()).getId()};
                             dtmConsultas.addRow(dados);
                         } catch (ParseException ex) {
                             Logger.getLogger(GerarRelatorio.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
-                    paciente.resetConsultas();
+                    medico.resetConsultas();
                     }else{
                         JOptionPane.showMessageDialog(null, "Voce nao possui consultas no periodo informado.");
                     }
         }
     }//GEN-LAST:event_formWindowOpened
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        TelefoneDAO daot = new TelefoneDAO();
+        int row = jtConsultas.getSelectedRow();
+        DefaultTableModel dtmConsultas = (DefaultTableModel) jtConsultas.getModel();
+        int id_paciente = (Integer) dtmConsultas.getValueAt(row,4);
+        ArrayList<Telefone> telefones = daot.read(id_paciente);
+        if (telefones.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Este paciente não possui telefones cadastrados.");
+            } else {
+                StringBuilder mensagem = new StringBuilder("Telefones do paciente:\n");
+                for (Telefone telefone : telefones) {
+                    mensagem.append(telefone.getTelefone()).append("\n");
+                }
+                JOptionPane.showMessageDialog(null, mensagem.toString());
+            }
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -270,6 +299,7 @@ public class GerarRelatorio extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -189,7 +189,7 @@ public class Cadastro extends javax.swing.JFrame {
                 this.dispose();
             }
             else{
-                JOptionPane.showMessageDialog(null, "Login Inválido, Cadastre-se ou cheque se o nome e senha estao corretos.","ERRO", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Login Inválido ou inativo, Cadastre-se ou cheque se o nome e senha estao corretos.","ERRO", JOptionPane.ERROR_MESSAGE);
             }
             
         }
@@ -205,7 +205,7 @@ public class Cadastro extends javax.swing.JFrame {
                     this.dispose();
             }
             else{
-                JOptionPane.showMessageDialog(null, "Login Inválido, Cadastre-se ou cheque se o nome e senha estao corretos.","ERRO", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Login Inválido ou inativo, Cadastre-se ou cheque se o nome e senha estao corretos.","ERRO", JOptionPane.ERROR_MESSAGE);
             }
         }
         //Caso erro

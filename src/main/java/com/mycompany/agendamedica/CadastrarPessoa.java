@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.dao.MedicoDAO;
 import model.dao.PacienteDAO;
+import model.dao.TelefoneDAO;
 
 /**
  *
@@ -272,7 +273,7 @@ public class CadastrarPessoa extends javax.swing.JFrame {
             String senha = senhaTxt.getText();
             String confirmar = confirmarTxt.getText();
             String data_nascimento = dataTxt.getText();
-            String sexo = sexoTxt.getText();
+            String sexo = sexoTxt.getText().toUpperCase();
             String cpf = cpfTxt.getText();
             boolean verificador = false;
             if(daop.checkLogin(cpf, senha) == true){
@@ -285,6 +286,7 @@ public class CadastrarPessoa extends javax.swing.JFrame {
                 SimpleDateFormat formatoOriginal = new SimpleDateFormat("dd/MM/yy");
                 SimpleDateFormat formatoDesejado = new SimpleDateFormat("yy/MM/dd");
                 Date data;
+                TelefoneDAO daot = new TelefoneDAO();
                 try {
                     // Parse a data original para um objeto Date
                     data = formatoOriginal.parse(data_nascimento);
@@ -292,6 +294,24 @@ public class CadastrarPessoa extends javax.swing.JFrame {
                     String dataFormatada = formatoDesejado.format(data);
                     Paciente paciente = new Paciente(nome,dataFormatada,sexo,senha,cpf);
                     daop.create(paciente);
+                    Paciente pacienteCriado = daop.returnkLogin(cpf, senha);
+                    while (true) {
+                        String telefone = JOptionPane.showInputDialog("Cadastre um telefone (Aperte Ok caso nao queira registrar mais telefones)");
+
+                        if (telefone == null || telefone.isEmpty()) {
+                            // Se o telefone for null (usuário clicou em "Cancelar") ou vazio (usuário clicou em "Ok" sem digitar nada)
+                            break;
+                        }
+
+                        String[] vetortelefone = telefone.split("(?!^)");
+
+                        if (vetortelefone.length == 11) {
+                            Telefone t = new Telefone(telefone, pacienteCriado.getId());
+                            daot.create(t);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Olá, telefone inválido formato: 00123456789");
+                        }
+                    }
                 } catch (ParseException ex) {
                     Logger.getLogger(CadastrarPessoa.class.getName()).log(Level.SEVERE, null, ex);
                 }

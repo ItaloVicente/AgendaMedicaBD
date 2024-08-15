@@ -160,7 +160,7 @@ public class AgendarConsulta extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
         MedicoDAO daom = new MedicoDAO();
-        ArrayList<Medico> medicos = daom.read();
+        ArrayList<Medico> medicos = daom.readAtivos();
         for(Medico medico: medicos){
             DefaultTableModel dtmConsultas = (DefaultTableModel) jtConsultas.getModel();
             Object[] dados = {medico.getNome(),medico.getEspecialidade(),medico.calcularMedia(),medico.getId()};

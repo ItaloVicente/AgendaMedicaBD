@@ -95,6 +95,15 @@ public class PacienteDAO {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         
+        ConsultaDAO daoc = new ConsultaDAO();
+        List<Consulta> consultas = daoc.getIdPaciente(p.getId());
+        for(Consulta consulta : consultas){
+            if(consulta.getIdPaciente() == p.getId()){
+                if(consulta.getStatus().equals("marcada")==true || consulta.getStatus().equals("espera")){
+                    daoc.delete(consulta);
+                    }
+                }
+            }
         try {
             stmt = con.prepareStatement("UPDATE paciente SET nome = ? , sexo = ? , senha = ? , data_de_nascimento = ? , cpf = ?, ativo = ?  WHERE id_paciente = ?");
             stmt.setString(1,p.getNome());
@@ -211,8 +220,9 @@ public class PacienteDAO {
             rs = stmt.executeQuery();
             
             if(rs.next()){
-                
-                verificador = true;
+                if(rs.getBoolean("ativo")){
+                    verificador = true;
+                }
                 
             }
             
