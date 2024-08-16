@@ -19,6 +19,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import model.dao.ConsultaDAO;
 import model.dao.MedicoDAO;
 import model.dao.PacienteDAO;
@@ -46,54 +47,27 @@ public class CancelarConsulta extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        boxHorario = new javax.swing.JComboBox<>();
-        nMedicoTxt = new javax.swing.JTextField();
-        nPacienteTxt = new javax.swing.JTextField();
-        dataTxt = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jtConsultas = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SISTEMA DE CANCELAMENTO DE CONSULTAS");
         setMinimumSize(new java.awt.Dimension(717, 508));
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
         getContentPane().setLayout(null);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel1.setText("CANCELAMENTO DE CONSULTAS");
         getContentPane().add(jLabel1);
         jLabel1.setBounds(230, 10, 264, 57);
-
-        jLabel2.setText("Nome Medico:");
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(50, 190, 130, 16);
-
-        jLabel3.setText("Nome Paciente:");
-        getContentPane().add(jLabel3);
-        jLabel3.setBounds(50, 240, 84, 16);
-
-        jLabel4.setText("Data Consulta(formato dd-mm-aaaa):");
-        getContentPane().add(jLabel4);
-        jLabel4.setBounds(50, 290, 201, 16);
-
-        jLabel5.setText("Horario:");
-        getContentPane().add(jLabel5);
-        jLabel5.setBounds(50, 340, 118, 16);
-
-        boxHorario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "08:00", "09:00", "10:00", "11:00" }));
-        getContentPane().add(boxHorario);
-        boxHorario.setBounds(140, 340, 117, 22);
-        getContentPane().add(nMedicoTxt);
-        nMedicoTxt.setBounds(180, 190, 240, 22);
-        getContentPane().add(nPacienteTxt);
-        nPacienteTxt.setBounds(180, 240, 240, 22);
-        getContentPane().add(dataTxt);
-        dataTxt.setBounds(320, 290, 93, 22);
 
         jButton1.setText("Ok");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -102,7 +76,7 @@ public class CancelarConsulta extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(50, 410, 72, 23);
+        jButton1.setBounds(310, 480, 72, 23);
 
         jButton2.setText("Cancelar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -111,7 +85,20 @@ public class CancelarConsulta extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton2);
-        jButton2.setBounds(540, 410, 76, 23);
+        jButton2.setBounds(530, 480, 76, 23);
+
+        jtConsultas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nome Medico", "Nome Paciente", "Data", "Hora"
+            }
+        ));
+        jScrollPane1.setViewportView(jtConsultas);
+
+        getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(160, 100, 560, 360);
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mycompany/blackkk.png"))); // NOI18N
         getContentPane().add(jLabel6);
@@ -128,98 +115,39 @@ public class CancelarConsulta extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        int row = jtConsultas.getSelectedRow();
+        DefaultTableModel dtmConsultas = (DefaultTableModel) jtConsultas.getModel();
+        if(row==-1){
+            JOptionPane.showMessageDialog(null, "Selecione uma linha!");
+        }
+        else{
         try {
             boolean verificador = false;
             Medico medicoLogin = Cadastro.getMedico();
             Paciente pacienteLogin = Cadastro.getPaciente();
+            String nMedico = (String) dtmConsultas.getValueAt(row, 0);
+            String nPaciente = (String) dtmConsultas.getValueAt(row, 1);
             // TODO add your handling code here:
             if(medicoLogin!=null&&pacienteLogin==null){
-            if(medicoLogin.getNome().equals(nMedicoTxt.getText().toUpperCase())){
-            String data = dataTxt.getText();
-            Date dataBox;
-            SimpleDateFormat formatoOriginalBox = new SimpleDateFormat("dd-MM-yyyy");
-            SimpleDateFormat formatoDesejadoBox = new SimpleDateFormat("yyyy-MM-dd");
-            dataBox = formatoOriginalBox.parse(data);
-            String dataFormatadaBox = formatoDesejadoBox.format(dataBox);
-            String hora = (String) boxHorario.getSelectedItem();
-            ConsultaDAO daoc = new ConsultaDAO();
-            MedicoDAO daom = new MedicoDAO();
-            PacienteDAO daop = new PacienteDAO();
-            String[] vetorData = data.split("(?!^)");
-            ArrayList<Consulta> consultas = daoc.getTodasConsultaDataHora(dataFormatadaBox, hora);
-            if(consultas!=null){
-            if(vetorData.length!=10){
-                JOptionPane.showMessageDialog(null, "Olá, data inserida inválida.");
-            }
-            else{
-                for(Consulta consulta: consultas){
-                Medico medico = daom.returnMedico(consulta.getIdMedico());
-                Paciente paciente = daop.returnPaciente(consulta.getIdPaciente());
-                Date dataObj;
-                SimpleDateFormat formatoOriginal = new SimpleDateFormat("yyyy-MM-dd");
-                SimpleDateFormat formatoDesejado = new SimpleDateFormat("dd-MM-yyyy");
-                dataObj = formatoOriginal.parse(consulta.getData());
-                String dataFormatada = formatoDesejado.format(dataObj);
-                String timeWithSeconds = consulta.getHorario();  // Exemplo de hora no formato HH:mm:ss
-                LocalTime time = LocalTime.parse(timeWithSeconds);  // Converter String para LocalTime
-
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");  // Criar formatter para o formato desejado
-                String timeWithoutSeconds = time.format(formatter);  // Converter LocalTime para String no novo formato
-                if(medico.getNome().equals(nMedicoTxt.getText().toUpperCase())&&dataFormatada.equals(dataTxt.getText())&&timeWithoutSeconds.equals(boxHorario.getSelectedItem())){
-                    daoc.delete(consulta);
-                    verificador =true;
-                }
-                }
-            }
-            }else{
-                JOptionPane.showMessageDialog(null, "Olá, médico, paciente, data, ou horario não encontrados, por favor, gere um relatorio.");
-            }
-            }
-            }
-            else if(pacienteLogin!=null&&medicoLogin==null){
-                if(pacienteLogin.getNome().equals(nPacienteTxt.getText().toUpperCase())){
-                String data = dataTxt.getText();
-                Date dataBox;
-                SimpleDateFormat formatoOriginalBox = new SimpleDateFormat("dd-MM-yyyy");
-                SimpleDateFormat formatoDesejadoBox = new SimpleDateFormat("yyyy-MM-dd");
-                dataBox = formatoOriginalBox.parse(data);
-                String dataFormatadaBox = formatoDesejadoBox.format(dataBox);
-                String hora = (String) boxHorario.getSelectedItem();
-                ConsultaDAO daoc = new ConsultaDAO();
-                MedicoDAO daom = new MedicoDAO();
-                PacienteDAO daop = new PacienteDAO();
-                String[] vetorData = data.split("(?!^)");
-                ArrayList<Consulta> consultasCancelar = daoc.getTodasConsultaDataHora(dataFormatadaBox, hora);
-                if(consultasCancelar!=null){
-                for(Consulta consultaCancelar : consultasCancelar){
-                    Medico medico = daom.returnMedico(consultaCancelar.getIdMedico());
-                    Paciente paciente = daop.returnPaciente(consultaCancelar.getIdPaciente());
-                    Date dataObj;
-                    SimpleDateFormat formatoOriginal = new SimpleDateFormat("yyyy-MM-dd");
-                    SimpleDateFormat formatoDesejado = new SimpleDateFormat("dd-MM-yyyy");
-                    dataObj = formatoOriginal.parse(consultaCancelar.getData());
-                    String dataFormatada = formatoDesejado.format(dataObj);
-                    String timeWithSeconds = consultaCancelar.getHorario();  // Exemplo de hora no formato HH:mm:ss
-                    LocalTime time = LocalTime.parse(timeWithSeconds);  // Converter String para LocalTime
-
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");  // Criar formatter para o formato desejado
-                    String timeWithoutSeconds = time.format(formatter);  // Converter LocalTime para String no novo formato
-                    if(medico.getNome().equals(nMedicoTxt.getText().toUpperCase())&&paciente.getNome().equals(nPacienteTxt.getText().toUpperCase())&&dataFormatada.equals(dataTxt.getText())&&timeWithoutSeconds.equals(boxHorario.getSelectedItem())){
-                        daoc.delete(consultaCancelar);
-                        verificador = true;
-                }
-                }
-                }else{
-                    JOptionPane.showMessageDialog(null, "Olá, médico, paciente, data, ou horario não encontrados, por favor, gere um relatorio.");
-                }
-                if(vetorData.length!=10){
-                        JOptionPane.showMessageDialog(null, "Olá, data inserida inválida.");
+                if(medicoLogin.getNome().equals(nMedico)){
+                    String data = (String) dtmConsultas.getValueAt(row, 2);
+                    Date dataBox;
+                    SimpleDateFormat formatoOriginalBox = new SimpleDateFormat("dd-MM-yyyy");
+                    SimpleDateFormat formatoDesejadoBox = new SimpleDateFormat("yyyy-MM-dd");
+                    dataBox = formatoOriginalBox.parse(data);
+                    String dataFormatadaBox = formatoDesejadoBox.format(dataBox);
+                    String hora = (String) dtmConsultas.getValueAt(row, 3);
+                    ConsultaDAO daoc = new ConsultaDAO();
+                    MedicoDAO daom = new MedicoDAO();
+                    PacienteDAO daop = new PacienteDAO();
+                    String[] vetorData = data.split("(?!^)");
+                    ArrayList<Consulta> consultas = daoc.getTodasConsultaDataHora(dataFormatadaBox, hora);
+                    if(consultas!=null){
+                        if(vetorData.length!=10){
+                            JOptionPane.showMessageDialog(null, "Olá, data inserida inválida.");
                         }
-                ArrayList<Consulta> consultas = daoc.getConsultaListaEspera(dataFormatadaBox, hora);
-                if(consultas!=null){
-                    int contador = 0;
-                    boolean verificador1=false;
-                    for(Consulta consulta: consultas){
+                        else{
+                            for(Consulta consulta: consultas){
                                 Medico medico = daom.returnMedico(consulta.getIdMedico());
                                 Paciente paciente = daop.returnPaciente(consulta.getIdPaciente());
                                 Date dataObj;
@@ -229,36 +157,96 @@ public class CancelarConsulta extends javax.swing.JFrame {
                                 String dataFormatada = formatoDesejado.format(dataObj);
                                 String timeWithSeconds = consulta.getHorario();  // Exemplo de hora no formato HH:mm:ss
                                 LocalTime time = LocalTime.parse(timeWithSeconds);  // Converter String para LocalTime
+
                                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");  // Criar formatter para o formato desejado
                                 String timeWithoutSeconds = time.format(formatter);  // Converter LocalTime para String no novo formato
-                                int prioridade = Integer.parseInt(consulta.getDescricao());
+                                if(medico.getNome().equals(nMedico)&&dataFormatada.equals(data)&&timeWithSeconds.equals((String) dtmConsultas.getValueAt(row, 3))){
+                                    daoc.delete(consulta);
+                                    verificador =true;
+                                }
+                            }
+                        }
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Olá, médico, paciente, data, ou horario não encontrados, por favor, gere um relatorio.");
+                    }
+                }
+            }
+            else if(pacienteLogin!=null&&medicoLogin==null){
+                if(pacienteLogin.getNome().equals(nPaciente)){
+                    String data = (String) dtmConsultas.getValueAt(row, 2);
+                    Date dataBox;
+                    SimpleDateFormat formatoOriginalBox = new SimpleDateFormat("dd-MM-yyyy");
+                    SimpleDateFormat formatoDesejadoBox = new SimpleDateFormat("yyyy-MM-dd");
+                    dataBox = formatoOriginalBox.parse(data);
+                    String dataFormatadaBox = formatoDesejadoBox.format(dataBox);
+                    String hora = (String) dtmConsultas.getValueAt(row, 3);
+                    ConsultaDAO daoc = new ConsultaDAO();
+                    MedicoDAO daom = new MedicoDAO();
+                    PacienteDAO daop = new PacienteDAO();
+                    String[] vetorData = data.split("(?!^)");
+                    ArrayList<Consulta> consultasCancelar = daoc.getTodasConsultaDataHora(dataFormatadaBox, hora);
+                    if(consultasCancelar!=null){
+                        for(Consulta consultaCancelar : consultasCancelar){
+                            Medico medico = daom.returnMedico(consultaCancelar.getIdMedico());
+                            Paciente paciente = daop.returnPaciente(consultaCancelar.getIdPaciente());
+                            Date dataObj;
+                            SimpleDateFormat formatoOriginal = new SimpleDateFormat("yyyy-MM-dd");
+                            SimpleDateFormat formatoDesejado = new SimpleDateFormat("dd-MM-yyyy");
+                            dataObj = formatoOriginal.parse(consultaCancelar.getData());
+                            String dataFormatada = formatoDesejado.format(dataObj);
+                            String timeWithSeconds = consultaCancelar.getHorario();  // Exemplo de hora no formato HH:mm:ss
+                            if(medico.getNome().equals(nMedico)&&paciente.getNome().equals(nPaciente)&&dataFormatada.equals(data)&&timeWithSeconds.equals((String) dtmConsultas.getValueAt(row, 3))){
+                                daoc.delete(consultaCancelar);
+                                verificador = true;
+                            }
+                        }
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Olá, médico, paciente, data, ou horario não encontrados, por favor, gere um relatorio.");
+                    }
+                    if(vetorData.length!=10){
+                        JOptionPane.showMessageDialog(null, "Olá, data inserida inválida.");
+                    }
+                    ArrayList<Consulta> consultas = daoc.getConsultaListaEspera(dataFormatadaBox, hora);
+                    if(consultas!=null){
+                        int contador = 0;
+                        boolean verificador1=false;
+                        for(Consulta consulta: consultas){
+                            Medico medico = daom.returnMedico(consulta.getIdMedico());
+                            Paciente paciente = daop.returnPaciente(consulta.getIdPaciente());
+                            Date dataObj;
+                            SimpleDateFormat formatoOriginal = new SimpleDateFormat("yyyy-MM-dd");
+                            SimpleDateFormat formatoDesejado = new SimpleDateFormat("dd-MM-yyyy");
+                            dataObj = formatoOriginal.parse(consulta.getData());
+                            String dataFormatada = formatoDesejado.format(dataObj);
+                            String timeWithSeconds = consulta.getHorario();  // Exemplo de hora no formato HH:mm:ss
+                            int prioridade = Integer.parseInt(consulta.getDescricao());
+                            if(contador==prioridade){
+                                if(medico.getNome().equals(nMedico)&&verificador1==false&&
+                                    dataFormatada.equals(data)&&
+                                    timeWithSeconds.equals((String) dtmConsultas.getValueAt(row, 3))){
+                                    consulta.setDescricao("");
+                                    consulta.setStatus("marcada");
+                                    daoc.update(consulta);
+                                    verificador1=true;
+                                    verificador = true;
+                                }
+                            }else{
+                                contador=prioridade;
                                 if(contador==prioridade){
-                                    if(medico.getNome().equals(nMedicoTxt.getText().toUpperCase())&&verificador1==false&&
-                                            dataFormatada.equals(dataTxt.getText())&&
-                                            timeWithoutSeconds.equals(boxHorario.getSelectedItem())){
+                                    if(medico.getNome().equals(nMedico)&&verificador1==false&&
+                                        dataFormatada.equals(data)&&
+                                        timeWithSeconds.equals((String) dtmConsultas.getValueAt(row, 3))){
                                         consulta.setDescricao("");
                                         consulta.setStatus("marcada");
                                         daoc.update(consulta);
                                         verificador1=true;
                                         verificador = true;
                                     }
-                                }else{
-                                      contador=prioridade;
-                                      if(contador==prioridade){
-                                        if(medico.getNome().equals(nMedicoTxt.getText().toUpperCase())&&verificador1==false&&
-                                            dataFormatada.equals(dataTxt.getText())&&
-                                            timeWithoutSeconds.equals(boxHorario.getSelectedItem())){
-                                            consulta.setDescricao("");
-                                            consulta.setStatus("marcada");
-                                            daoc.update(consulta);
-                                            verificador1=true;
-                                            verificador = true;
-                                    }
                                 }
-                                    }
                             }
+                        }
+                    }
                 }
-            }
             }
             if(verificador==false){
                 JOptionPane.showMessageDialog(null, "Olá, médico, paciente, data, ou horario não encontrados ou inseridos de maneira incorreta, por favor, gere um relatorio.");
@@ -267,7 +255,64 @@ public class CancelarConsulta extends javax.swing.JFrame {
             Logger.getLogger(CancelarConsulta.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "Olá, médico, paciente, data, ou horario não encontrados, por favor, gere um relatorio.");
         }
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+    // TODO add your handling code here:
+        this.setSize(800,600);
+        MedicoDAO daom = new MedicoDAO();
+        PacienteDAO daop = new PacienteDAO();
+        if(Cadastro.getMedico()==null&&Cadastro.getPaciente()!=null){
+            Paciente paciente = Cadastro.getPaciente();
+            ArrayList<Consulta> consultas;
+            consultas = paciente.getConsultas();
+            if(consultas.size()>0){
+                    for(Consulta consulta:consultas){
+                        try {
+                            Date data;
+                            DefaultTableModel dtmConsultas = (DefaultTableModel) jtConsultas.getModel();
+                            SimpleDateFormat formatoOriginal = new SimpleDateFormat("yyyy-MM-dd");
+                            SimpleDateFormat formatoDesejado = new SimpleDateFormat("dd-MM-yyyy");
+                            data = formatoOriginal.parse(consulta.getData());
+                            String dataFormatada = formatoDesejado.format(data);
+                            Object[] dados = {daom.returnMedico(consulta.getIdMedico()).getNome(),daop.returnPaciente(consulta.getIdPaciente()).getNome(),dataFormatada,consulta.getHorario()};
+                            dtmConsultas.addRow(dados);
+                        } catch (ParseException ex) {
+                            Logger.getLogger(GerarRelatorio.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                    paciente.resetConsultas();
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Voce nao possui consultas no periodo informado.");
+                    }
+        }
+        if(Cadastro.getMedico()!=null&&Cadastro.getPaciente()==null){
+            Medico medico = Cadastro.getMedico();
+            ArrayList<Consulta> consultas;
+            consultas = medico.getConsultas();
+            if(consultas.size()>0){
+                    for(Consulta consulta:consultas){
+                        try {
+                            Date data;
+                            DefaultTableModel dtmConsultas = (DefaultTableModel) jtConsultas.getModel();
+                            SimpleDateFormat formatoOriginal = new SimpleDateFormat("yyyy-MM-dd");
+                            SimpleDateFormat formatoDesejado = new SimpleDateFormat("dd-MM-yyyy");
+                            data = formatoOriginal.parse(consulta.getData());
+                            String dataFormatada = formatoDesejado.format(data);
+                            Object[] dados = {daom.returnMedico(consulta.getIdMedico()).getNome(),daop.returnPaciente(consulta.getIdPaciente()).getNome(),dataFormatada,consulta.getHorario(),daop.returnPaciente(consulta.getIdPaciente()).getId()};
+                            dtmConsultas.addRow(dados);
+                        } catch (ParseException ex) {
+                            Logger.getLogger(GerarRelatorio.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                    medico.resetConsultas();
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Voce nao possui consultas no periodo informado.");
+                    }
+        }
+    }//GEN-LAST:event_formWindowOpened
+
 
     /**
      * @param args the command line arguments
@@ -305,17 +350,11 @@ public class CancelarConsulta extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> boxHorario;
-    private javax.swing.JTextField dataTxt;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JTextField nMedicoTxt;
-    private javax.swing.JTextField nPacienteTxt;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jtConsultas;
     // End of variables declaration//GEN-END:variables
 }

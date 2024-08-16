@@ -1,2 +1,3 @@
 model\dao\TelefoneDAO.class
 com\mycompany\agendamedica\Telefone.class
+com\mycompany\agendamedica\CancelarConsulta$4.class
