@@ -49,6 +49,7 @@ public class PosLogin extends javax.swing.JFrame {
         btnSair = new javax.swing.JButton();
         lblName = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
+        chxHistorico = new javax.swing.JCheckBox();
         jLabel3 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -135,6 +136,16 @@ public class PosLogin extends javax.swing.JFrame {
         getContentPane().add(jButton2);
         jButton2.setBounds(30, 330, 120, 23);
 
+        buttonGroup1.add(chxHistorico);
+        chxHistorico.setText("Histórico Consulta");
+        chxHistorico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chxHistoricoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(chxHistorico);
+        chxHistorico.setBounds(380, 280, 120, 20);
+
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mycompany/blackkk.png"))); // NOI18N
         getContentPane().add(jLabel3);
         jLabel3.setBounds(0, 0, 930, 740);
@@ -184,6 +195,7 @@ public class PosLogin extends javax.swing.JFrame {
         chxRealizar.setVisible(false);
         chxAgendar.setVisible(false);
         chxAvaliar.setVisible(false);
+        chxHistorico.setVisible(true);
         if (Cadastro.getMedico()!=null&&Cadastro.getPaciente()==null){
         try{
             chxRealizar.setVisible(true);
@@ -227,6 +239,11 @@ public class PosLogin extends javax.swing.JFrame {
                 frame.setVisible(true);
                 this.dispose();
             }
+            else if(chxRealizar.isSelected()==false&&chxGerar.isSelected()==false&&chxCancelar.isSelected()==false&&chxAgendar.isSelected()==false&&chxHistorico.isSelected()==true){
+                HistoricoConsultas frame = new HistoricoConsultas();
+                frame.setVisible(true);
+                this.dispose();
+            }
             else{
                 JOptionPane.showMessageDialog(null, "Olá! Você deixou várias opções ativas ou nenhuma ativa.","ERRO", JOptionPane.ERROR_MESSAGE);
             }
@@ -254,6 +271,11 @@ public class PosLogin extends javax.swing.JFrame {
             }
             else if(chxAgendar.isSelected()==false&&chxGerar.isSelected()==false&&chxCancelar.isSelected()==false&&chxAvaliar.isSelected()==true){
                 AvaliarConsulta frame = new AvaliarConsulta();
+                frame.setVisible(true);
+                this.dispose();
+            }
+            else if(chxRealizar.isSelected()==false&&chxGerar.isSelected()==false&&chxCancelar.isSelected()==false&&chxAgendar.isSelected()==false&&chxHistorico.isSelected()==true){
+                HistoricoConsultas frame = new HistoricoConsultas();
                 frame.setVisible(true);
                 this.dispose();
             }
@@ -307,6 +329,10 @@ public class PosLogin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton2MouseClicked
 
+    private void chxHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chxHistoricoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chxHistoricoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -345,6 +371,7 @@ public class PosLogin extends javax.swing.JFrame {
     private javax.swing.JCheckBox chxAvaliar;
     private javax.swing.JCheckBox chxCancelar;
     private javax.swing.JCheckBox chxGerar;
+    private javax.swing.JCheckBox chxHistorico;
     private javax.swing.JCheckBox chxRealizar;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

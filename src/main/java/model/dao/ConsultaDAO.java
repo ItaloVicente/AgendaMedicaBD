@@ -315,4 +315,40 @@ public class ConsultaDAO {
         }
         return consultas;
     }
+    public ArrayList<ArrayList<String>> returnConsultasJoinPaciente(int id_paciente) throws SQLException{
+        ArrayList<ArrayList<String>> ConsultasPaciente = new ArrayList<>();
+        Connection conn = ConnectionFactory.getConnection();
+        PreparedStatement stmt = conn.prepareStatement("SELECT M.nome,P.nome,C.data_consulta,C.horario,C.descricao FROM consulta as C JOIN paciente as P on P.id_paciente = C.id_paciente JOIN medico as M on M.id_medico=C.id_medico WHERE P.id_paciente=? and C.status=\"avaliada\"");
+
+        stmt.setInt(1, id_paciente);
+        ResultSet rs = stmt.executeQuery();
+        while(rs.next()){
+            ArrayList<String> colunas = new ArrayList<>();
+            colunas.add(rs.getString("M.nome"));
+            colunas.add(rs.getString("P.nome"));
+            colunas.add(rs.getString("C.data_consulta"));
+            colunas.add(rs.getString("C.horario"));
+            colunas.add(rs.getString("C.descricao"));
+            ConsultasPaciente.add(colunas);
+        }
+        return ConsultasPaciente;
+    }
+    public ArrayList<ArrayList<String>> returnConsultasJoinMedico(int id_medico) throws SQLException{
+        ArrayList<ArrayList<String>> ConsultasPaciente = new ArrayList<>();
+        Connection conn = ConnectionFactory.getConnection();
+        PreparedStatement stmt = conn.prepareStatement("SELECT M.nome,P.nome,C.data_consulta,C.horario,C.descricao FROM consulta as C JOIN paciente as P on P.id_paciente = C.id_paciente JOIN medico as M on M.id_medico=C.id_medico WHERE M.id_medico=? and C.status=\"avaliada\"");
+
+        stmt.setInt(1, id_medico);
+        ResultSet rs = stmt.executeQuery();
+        while(rs.next()){
+            ArrayList<String> colunas = new ArrayList<>();
+            colunas.add(rs.getString("M.nome"));
+            colunas.add(rs.getString("P.nome"));
+            colunas.add(rs.getString("C.data_consulta"));
+            colunas.add(rs.getString("C.horario"));
+            colunas.add(rs.getString("C.descricao"));
+            ConsultasPaciente.add(colunas);
+        }
+        return ConsultasPaciente;
+    }
 }
