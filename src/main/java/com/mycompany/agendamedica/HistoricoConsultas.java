@@ -79,11 +79,11 @@ public class HistoricoConsultas extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Médico");
+        jLabel1.setText("Nome Médico");
 
-        jLabel2.setText("Paciente");
+        jLabel2.setText("Nome Paciente");
 
-        jButton2.setText("pesquisar");
+        jButton2.setText("Pesquisar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -105,13 +105,13 @@ public class HistoricoConsultas extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(248, 248, 248)
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(pesquisaTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2)))
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addContainerGap(118, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -135,6 +135,7 @@ public class HistoricoConsultas extends javax.swing.JFrame {
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
        ((DefaultTableModel) jtConsultas.getModel()).setRowCount(0);
         if(Cadastro.getMedico()!=null){
+            jLabel1.setVisible(false);
             ConsultaDAO daoc = new ConsultaDAO();
             try {
                 ArrayList<ArrayList<String>> consultasRealizadas = daoc.returnConsultasJoinMedico(Cadastro.getMedico().getId(), pesquisaTxt.getText());
@@ -147,6 +148,7 @@ public class HistoricoConsultas extends javax.swing.JFrame {
             }
         }
         if(Cadastro.getPaciente()!=null){
+            jLabel2.setVisible(false);
             ConsultaDAO daoc = new ConsultaDAO();
             try {
                 ArrayList<ArrayList<String>> consultasRealizadas = daoc.returnConsultasJoinPaciente(Cadastro.getPaciente().getId(), pesquisaTxt.getText());
@@ -174,7 +176,7 @@ public class HistoricoConsultas extends javax.swing.JFrame {
         if(Cadastro.getMedico()!=null){
             ConsultaDAO daoc = new ConsultaDAO();
             try {
-                ArrayList<ArrayList<String>> consultasRealizadas = daoc.returnConsultasJoinMedico(Cadastro.getMedico().getId(), pesquisaTxt.getText());
+                ArrayList<ArrayList<String>> consultasRealizadas = daoc.returnConsultasJoinMedico(Cadastro.getMedico().getId(), pesquisaTxt.getText().toUpperCase());
                 for(ArrayList<String> consulta : consultasRealizadas){
                     Object[] consultaArray = consulta.toArray(Object[]::new);
                     ((DefaultTableModel) jtConsultas.getModel()).addRow(consultaArray);
@@ -186,7 +188,7 @@ public class HistoricoConsultas extends javax.swing.JFrame {
         if(Cadastro.getPaciente()!=null){
             ConsultaDAO daoc = new ConsultaDAO();
             try {
-                ArrayList<ArrayList<String>> consultasRealizadas = daoc.returnConsultasJoinPaciente(Cadastro.getPaciente().getId(), pesquisaTxt.getText());
+                ArrayList<ArrayList<String>> consultasRealizadas = daoc.returnConsultasJoinPaciente(Cadastro.getPaciente().getId(), pesquisaTxt.getText().toUpperCase());
                 for(ArrayList<String> consulta : consultasRealizadas){
                     Object[] consultaArray = consulta.toArray(Object[]::new);
                     ((DefaultTableModel) jtConsultas.getModel()).addRow(consultaArray);
