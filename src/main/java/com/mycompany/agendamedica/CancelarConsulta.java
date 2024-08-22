@@ -78,14 +78,14 @@ public class CancelarConsulta extends javax.swing.JFrame {
         getContentPane().add(jButton1);
         jButton1.setBounds(310, 480, 72, 23);
 
-        jButton2.setText("Cancelar");
+        jButton2.setText("Voltar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
         getContentPane().add(jButton2);
-        jButton2.setBounds(530, 480, 76, 23);
+        jButton2.setBounds(530, 480, 72, 23);
 
         jtConsultas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

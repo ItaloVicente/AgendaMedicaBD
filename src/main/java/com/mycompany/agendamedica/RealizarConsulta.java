@@ -109,22 +109,22 @@ public class RealizarConsulta extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(320, 570, 80, 23);
+        jButton1.setBounds(320, 570, 90, 23);
 
-        jButton2.setText("Ok");
+        jButton2.setText("Selecionar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
         getContentPane().add(jButton2);
-        jButton2.setBounds(200, 570, 72, 23);
+        jButton2.setBounds(200, 570, 90, 23);
 
         lblEscolha.setText("Escolha uma consulta:");
         getContentPane().add(lblEscolha);
         lblEscolha.setBounds(210, 90, 230, 16);
 
-        btnCancelar.setText("Sair");
+        btnCancelar.setText("Voltar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);

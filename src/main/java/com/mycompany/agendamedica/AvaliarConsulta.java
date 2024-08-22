@@ -92,14 +92,14 @@ public class AvaliarConsulta extends javax.swing.JFrame {
         getContentPane().add(jButton1);
         jButton1.setBounds(190, 560, 72, 23);
 
-        jButton2.setText("Finalizar");
+        jButton2.setText("Voltar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
         getContentPane().add(jButton2);
-        jButton2.setBounds(560, 560, 74, 23);
+        jButton2.setBounds(560, 560, 72, 23);
 
         jLabel2.setText("Digite a data da consulta que deseja avaliar: (formato dd-mm-aaaa)");
         getContentPane().add(jLabel2);
@@ -114,7 +114,7 @@ public class AvaliarConsulta extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton3);
-        jButton3.setBounds(370, 560, 80, 23);
+        jButton3.setBounds(370, 560, 90, 23);
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mycompany/blackkk.png"))); // NOI18N
         getContentPane().add(jLabel3);

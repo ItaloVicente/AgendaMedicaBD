@@ -73,23 +73,23 @@ public class CadastrarPessoa extends javax.swing.JFrame {
         });
         getContentPane().setLayout(null);
 
-        jButton1.setText("Ok");
+        jButton1.setText("Cadastrar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(250, 460, 72, 23);
+        jButton1.setBounds(250, 460, 80, 23);
 
-        jButton2.setText("Cancelar");
+        jButton2.setText("Voltar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
         getContentPane().add(jButton2);
-        jButton2.setBounds(430, 460, 76, 23);
+        jButton2.setBounds(430, 460, 72, 23);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel1.setText("           JANELA DE CADASTRO");
@@ -183,12 +183,12 @@ public class CadastrarPessoa extends javax.swing.JFrame {
         jRadioButton1.setSelected(true);
         jRadioButton1.setText("Masculino");
         getContentPane().add(jRadioButton1);
-        jRadioButton1.setBounds(330, 330, 78, 21);
+        jRadioButton1.setBounds(330, 330, 77, 21);
 
         buttonGroup1.add(jRadioButton2);
         jRadioButton2.setText("Feminino");
         getContentPane().add(jRadioButton2);
-        jRadioButton2.setBounds(450, 330, 73, 21);
+        jRadioButton2.setBounds(450, 330, 72, 21);
         getContentPane().add(crmTxt);
         crmTxt.setBounds(340, 320, 370, 30);
 

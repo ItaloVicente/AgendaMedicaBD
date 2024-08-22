@@ -116,14 +116,14 @@ public class AgendarConsulta extends javax.swing.JFrame {
         getContentPane().add(jButton2);
         jButton2.setBounds(160, 510, 110, 23);
 
-        jButton3.setText("Cancelar");
+        jButton3.setText("Voltar");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
         getContentPane().add(jButton3);
-        jButton3.setBounds(590, 510, 76, 23);
+        jButton3.setBounds(590, 510, 72, 23);
 
         jLabel3.setText("Digite a data que deseja agendar: (formato dd-mm-aaaa)");
         getContentPane().add(jLabel3);

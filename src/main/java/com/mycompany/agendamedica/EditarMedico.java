@@ -46,6 +46,7 @@ public class EditarMedico extends javax.swing.JFrame {
         nomeMedico = new javax.swing.JTextField();
         especialidadeTxt = new javax.swing.JTextField();
         crmTxt = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -99,6 +100,15 @@ public class EditarMedico extends javax.swing.JFrame {
         getContentPane().add(crmTxt);
         crmTxt.setBounds(330, 232, 160, 30);
 
+        jButton1.setText("Voltar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1);
+        jButton1.setBounds(350, 350, 72, 23);
+
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mycompany/blackkk.png"))); // NOI18N
         getContentPane().add(jLabel6);
         jLabel6.setBounds(0, 0, 930, 740);
@@ -135,6 +145,13 @@ public class EditarMedico extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton6MouseEntered
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        PosLogin frame = new PosLogin();
+        frame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -168,6 +185,7 @@ public class EditarMedico extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField crmTxt;
     private javax.swing.JTextField especialidadeTxt;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel6;

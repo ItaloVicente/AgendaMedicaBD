@@ -82,7 +82,7 @@ public class Cadastro extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel1.setText("BEM-VINDO AO SISTEMA DE AGENDAMENTO MEDICO");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(160, 10, 430, 70);
+        jLabel1.setBounds(180, 10, 430, 70);
         getContentPane().add(nomeTxt);
         nomeTxt.setBounds(290, 110, 211, 30);
 

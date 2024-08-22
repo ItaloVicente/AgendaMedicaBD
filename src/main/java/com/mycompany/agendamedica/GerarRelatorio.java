@@ -55,7 +55,6 @@ public class GerarRelatorio extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("GERAR RELATORIO");
-        setMaximumSize(new java.awt.Dimension(960, 693));
         setMinimumSize(new java.awt.Dimension(960, 693));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -72,7 +71,7 @@ public class GerarRelatorio extends javax.swing.JFrame {
 
         jLabel2.setText("Data Inicial: (formato dd-mm-aaaa)");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(310, 110, 188, 16);
+        jLabel2.setBounds(310, 110, 190, 16);
 
         jLabel3.setText("Data Final: (formato dd-mm-aaaa)");
         getContentPane().add(jLabel3);
@@ -82,14 +81,14 @@ public class GerarRelatorio extends javax.swing.JFrame {
         getContentPane().add(dataFinalTxt);
         dataFinalTxt.setBounds(550, 150, 102, 22);
 
-        jButton1.setText("Ok");
+        jButton1.setText("Pesquisar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(220, 610, 72, 23);
+        jButton1.setBounds(710, 130, 90, 23);
 
         jButton2.setText("Voltar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -98,7 +97,7 @@ public class GerarRelatorio extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton2);
-        jButton2.setBounds(590, 610, 72, 23);
+        jButton2.setBounds(510, 610, 72, 23);
 
         jtConsultas = new javax.swing.JTable(){
             public boolean isCellEditable(int rowIndex,int colIndex){
@@ -127,7 +126,7 @@ public class GerarRelatorio extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton3);
-        jButton3.setBounds(390, 610, 72, 23);
+        jButton3.setBounds(300, 610, 72, 23);
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mycompany/blackkk.png"))); // NOI18N
         getContentPane().add(jLabel4);
