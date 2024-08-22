@@ -72,7 +72,7 @@ public class GerarRelatorio extends javax.swing.JFrame {
 
         jLabel2.setText("Data Inicial: (formato dd-mm-aaaa)");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(310, 110, 190, 16);
+        jLabel2.setBounds(310, 110, 188, 16);
 
         jLabel3.setText("Data Final: (formato dd-mm-aaaa)");
         getContentPane().add(jLabel3);

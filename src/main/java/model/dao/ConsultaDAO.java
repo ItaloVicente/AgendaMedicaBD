@@ -315,12 +315,13 @@ public class ConsultaDAO {
         }
         return consultas;
     }
-    public ArrayList<ArrayList<String>> returnConsultasJoinPaciente(int id_paciente) throws SQLException{
+    public ArrayList<ArrayList<String>> returnConsultasJoinPaciente(int id_paciente, String pesquisa) throws SQLException{
         ArrayList<ArrayList<String>> ConsultasPaciente = new ArrayList<>();
         Connection conn = ConnectionFactory.getConnection();
-        PreparedStatement stmt = conn.prepareStatement("SELECT M.nome,P.nome,C.data_consulta,C.horario,C.descricao FROM consulta as C JOIN paciente as P on P.id_paciente = C.id_paciente JOIN medico as M on M.id_medico=C.id_medico WHERE P.id_paciente=? and C.status=\"avaliada\"");
+        PreparedStatement stmt = conn.prepareStatement("SELECT M.nome,P.nome,C.data_consulta,C.horario,C.descricao FROM consulta as C JOIN paciente as P on P.id_paciente = C.id_paciente JOIN medico as M on M.id_medico=C.id_medico WHERE P.id_paciente=? and C.status=\"avaliada\" and M.nome LIKE ?");
 
         stmt.setInt(1, id_paciente);
+        stmt.setString(2, "%"+pesquisa+"%" );
         ResultSet rs = stmt.executeQuery();
         while(rs.next()){
             ArrayList<String> colunas = new ArrayList<>();
@@ -333,12 +334,13 @@ public class ConsultaDAO {
         }
         return ConsultasPaciente;
     }
-    public ArrayList<ArrayList<String>> returnConsultasJoinMedico(int id_medico) throws SQLException{
+    public ArrayList<ArrayList<String>> returnConsultasJoinMedico(int id_medico, String pesquisa) throws SQLException{
         ArrayList<ArrayList<String>> ConsultasPaciente = new ArrayList<>();
         Connection conn = ConnectionFactory.getConnection();
-        PreparedStatement stmt = conn.prepareStatement("SELECT M.nome,P.nome,C.data_consulta,C.horario,C.descricao FROM consulta as C JOIN paciente as P on P.id_paciente = C.id_paciente JOIN medico as M on M.id_medico=C.id_medico WHERE M.id_medico=? and C.status=\"avaliada\"");
+        PreparedStatement stmt = conn.prepareStatement("SELECT M.nome,P.nome,C.data_consulta,C.horario,C.descricao FROM consulta as C JOIN paciente as P on P.id_paciente = C.id_paciente JOIN medico as M on M.id_medico=C.id_medico WHERE M.id_medico=? and C.status=\"avaliada\" and P.nome LIKE ? ");
 
         stmt.setInt(1, id_medico);
+        stmt.setString(2, "%"+pesquisa+"%" );
         ResultSet rs = stmt.executeQuery();
         while(rs.next()){
             ArrayList<String> colunas = new ArrayList<>();

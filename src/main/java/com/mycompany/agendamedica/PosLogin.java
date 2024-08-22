@@ -207,7 +207,7 @@ public class PosLogin extends javax.swing.JFrame {
             e.getMessage();
         }
         }
-        if (Cadastro.getPaciente()!=null&&Cadastro.getMedico()==null){
+        else if (Cadastro.getPaciente()!=null&&Cadastro.getMedico()==null){
         try{
             chxAgendar.setVisible(true);
             chxAvaliar.setVisible(true);
