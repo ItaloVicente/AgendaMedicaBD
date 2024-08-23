@@ -25,16 +25,16 @@ public class AgendaMedica {
 //        p.setId(5);
 //        PacienteDAO daop = new PacienteDAO();
 //        daop.create(p);
-        Consulta c = new Consulta(15, 10, "24/05/01", "10:00","espera");
-        c.setDescricao("2");
-        ConsultaDAO dao = new ConsultaDAO();
-        dao.create(c);
+//        Consulta c = new Consulta(15, 10, "24/05/01", "10:00","espera");
+//        c.setDescricao("2");
+//        ConsultaDAO dao = new ConsultaDAO();
+//        dao.create(c);
         //dao.delete(c);
         /*
         for(Consulta consulta : consultas){
             System.out.println(consulta.getStatus());
         }
 */
-        
+        new Cadastro().setVisible(true);
     }
 }
