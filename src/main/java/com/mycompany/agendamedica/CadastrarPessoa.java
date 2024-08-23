@@ -258,7 +258,6 @@ public class CadastrarPessoa extends javax.swing.JFrame {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yy/MM/dd");
             String formattedDate = dateFormat.format(jDateChooser1.getDate());
             String sexo;
-            System.out.println(formattedDate.length());
             if(jRadioButton1.isSelected())
                 sexo = "M";
             else
