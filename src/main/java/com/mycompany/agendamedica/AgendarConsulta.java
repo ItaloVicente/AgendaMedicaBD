@@ -51,9 +51,9 @@ public class AgendarConsulta extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        dataTxt = new javax.swing.JTextField();
         chxHora = new javax.swing.JComboBox<>();
         jButton4 = new javax.swing.JButton();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -132,8 +132,6 @@ public class AgendarConsulta extends javax.swing.JFrame {
         jLabel4.setText("Escolha a hora:");
         getContentPane().add(jLabel4);
         jLabel4.setBounds(180, 140, 190, 16);
-        getContentPane().add(dataTxt);
-        dataTxt.setBounds(560, 110, 114, 22);
 
         chxHora.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "08:00:00", "09:00:00", "10:00:00", "11:00:00" }));
         getContentPane().add(chxHora);
@@ -147,6 +145,10 @@ public class AgendarConsulta extends javax.swing.JFrame {
         });
         getContentPane().add(jButton4);
         jButton4.setBounds(370, 510, 100, 23);
+
+        jDateChooser1.setDateFormatString("yyyy-MM-dd");
+        getContentPane().add(jDateChooser1);
+        jDateChooser1.setBounds(560, 110, 103, 22);
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mycompany/blackkk.png"))); // NOI18N
         jLabel5.setMaximumSize(new java.awt.Dimension(1077, 756));
@@ -207,26 +209,20 @@ public class AgendarConsulta extends javax.swing.JFrame {
             String nomeMedico = (String) dtmConsultas.getValueAt(row, 0);
             String especialidadeMedico= (String) dtmConsultas.getValueAt(row, 1);
             int id_medico = (Integer) dtmConsultas.getValueAt(row, 3);
-            String data = dataTxt.getText();
+            String data;
             boolean verificadorData = false;
-            if(data.equals("")){
+            if(jDateChooser1.getDate() == null){
                 JOptionPane.showMessageDialog(null, "Olá, datas inseridas inválidas!");
                 verificadorData=true;
             }
             else{
-            String[] vetorData = data.split("(?!^)");
+            Date dataBox;
+            SimpleDateFormat formatoOriginalBox = new SimpleDateFormat("dd-MM-yyyy");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            data = dateFormat.format(jDateChooser1.getDate());
             boolean verificadorMesmoDia = false;
-            if(vetorData.length!=10 || data.contains("/")){
-                JOptionPane.showMessageDialog(null, "Olá, datas inseridas inválidas!");
-                verificadorData = true;
-            }
-            else{
-                Date dataBox;
-                SimpleDateFormat formatoOriginalBox = new SimpleDateFormat("dd-MM-yyyy");
-                SimpleDateFormat formatoDesejadoBox = new SimpleDateFormat("yyyy-MM-dd");
-                dataBox = formatoOriginalBox.parse(data);
-                data = formatoDesejadoBox.format(dataBox);
-                ArrayList<Consulta> consultasPaciente = paciente.getConsultas();
+
+               ArrayList<Consulta> consultasPaciente = paciente.getConsultas();
             ArrayList<Consulta> consultasListaEsperaPaciente = paciente.getListaEspera();
             for(Consulta consultaPaciente : consultasPaciente){
                 if(consultaPaciente.getData().equals(data)&&consultaPaciente.getHorario().equals(hora)){
@@ -276,7 +272,7 @@ public class AgendarConsulta extends javax.swing.JFrame {
                                 if(respostas2.equals("Y")){
                                     String dataNova = JOptionPane.showInputDialog("Digite a data (formato dd-mm-aaaa)");
                                     dataBox = formatoOriginalBox.parse(dataNova);
-                                    dataNova = formatoDesejadoBox.format(dataBox);
+                                    dataNova = dateFormat.format(dataBox);
                                     for(Consulta consulta2: consultas){
                                         if(consulta2.getData().equals(dataNova)){
                                             consultasNovoDia.add(consulta2);
@@ -338,7 +334,7 @@ public class AgendarConsulta extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Voce ja possui uma consulta marcada ou na espera para esse dia");
             }
             }
-            }
+            
         } catch (ParseException ex) {
             Logger.getLogger(AgendarConsulta.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -348,6 +344,8 @@ public class AgendarConsulta extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         JOptionPane.showMessageDialog(null, "Operacao finalizada");
         Cadastro frame = new Cadastro();
+        Cadastro.setMedico(null);
+        Cadastro.setPaciente(null);
         frame.setVisible(true);
         this.dispose();
         
@@ -390,11 +388,11 @@ public class AgendarConsulta extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> chxHora;
-    private javax.swing.JTextField dataTxt;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
