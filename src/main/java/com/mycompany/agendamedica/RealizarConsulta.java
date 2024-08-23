@@ -39,12 +39,12 @@ public class RealizarConsulta extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jtConsultas = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        dataRelatorioTxt = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         lblEscolha = new javax.swing.JLabel();
         btnCancelar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -83,17 +83,9 @@ public class RealizarConsulta extends javax.swing.JFrame {
         getContentPane().add(jScrollPane1);
         jScrollPane1.setBounds(50, 160, 719, 381);
 
-        jLabel1.setText("Digite a data atual (formato dd-mm-aaaa):");
+        jLabel1.setText("data:");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(210, 50, 280, 16);
-
-        dataRelatorioTxt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dataRelatorioTxtActionPerformed(evt);
-            }
-        });
-        getContentPane().add(dataRelatorioTxt);
-        dataRelatorioTxt.setBounds(490, 50, 138, 22);
+        jLabel1.setBounds(210, 50, 30, 16);
 
         jButton1.setText("Pesquisar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -131,16 +123,16 @@ public class RealizarConsulta extends javax.swing.JFrame {
         getContentPane().add(jLabel2);
         jLabel2.setBounds(256, 6, 350, 31);
 
+        jDateChooser1.setDateFormatString("yyyy-MM-dd");
+        getContentPane().add(jDateChooser1);
+        jDateChooser1.setBounds(250, 50, 103, 22);
+
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mycompany/blackkk.png"))); // NOI18N
         getContentPane().add(jLabel3);
         jLabel3.setBounds(0, -10, 940, 760);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void dataRelatorioTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dataRelatorioTxtActionPerformed
-        
-    }//GEN-LAST:event_dataRelatorioTxtActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         
@@ -167,19 +159,15 @@ public class RealizarConsulta extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-        String dataRelatorio = dataRelatorioTxt.getText();
-        String[] vetorData = dataRelatorio.split("(?!^)");
         SimpleDateFormat formatoOriginal = new SimpleDateFormat("dd-MM-yyyy");
         SimpleDateFormat formatoDesejado = new SimpleDateFormat("yyyy-MM-dd");
-        Date data;
+        String dataFormatada = formatoDesejado.format(jDateChooser1.getDate());
+        
+        
         try {
-            data = formatoOriginal.parse(dataRelatorio);
-            String dataFormatada = formatoDesejado.format(data);
+
             PacienteDAO daop = new PacienteDAO();
-        if(vetorData.length!=10){
-            JOptionPane.showMessageDialog(null, "Olá, datas inseridas inválidas formato (dd-mm-yyyy). Nao esqueca de colocar o (-) ");
-        }
+
         DefaultTableModel table = (DefaultTableModel) jtConsultas.getModel();
         int index5 = table.getRowCount();
         for(int x=0;x<index5;x++){
@@ -289,9 +277,9 @@ public class RealizarConsulta extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JTextField dataRelatorioTxt;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
