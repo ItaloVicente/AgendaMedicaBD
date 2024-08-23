@@ -1,6 +1,8 @@
 # Vídeo da Apresentação
 https://www.youtube.com/watch?v=cLY_0DggBSY
 
+# Configurando o MySQL
+
 Comando para criar a tabela MySQL:
 
 CREATE TABLE consulta ( id_consulta INT NOT NULL AUTO_INCREMENT, id_medico INT, id_paciente INT, data_consulta DATE, horario TIME, descricao TEXT, nota DOUBLE, status TEXT, PRIMARY KEY (id_consulta), FOREIGN KEY (id_medico) REFERENCES medico(id_medico), FOREIGN KEY (id_paciente) REFERENCES paciente(id_paciente) ); 
