@@ -22,7 +22,7 @@ public class ConnectionFactory {
     private static final String DRIVER = "com.mysql.jdbc.Driver";
     private static final String URL = "jdbc:mysql://localhost:3306/dbagendamedica?zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=America/Sao_Paulo ";
     private static final String USER = "root";
-    private static final String PASSWORD = "root";
+    private static final String PASSWORD = "Diegosql";
     
     public static Connection getConnection(){
         

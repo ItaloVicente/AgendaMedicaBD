@@ -8,7 +8,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import model.dao.ConsultaDAO;
-import model.dao.PacienteDAO;
 
 /**
  *
@@ -20,8 +19,11 @@ public class Medico {
     private String CRM;
     private String especialidade;
     private String senha;
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     private ArrayList<Double> notas = new ArrayList();
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     private ArrayList<Consulta> consultas = new ArrayList();
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     private ArrayList<Consulta> listaEspera = new ArrayList();
     private int ativo = 1;
     public Medico(String nome, String especialidade, String senha, String CRM) {

@@ -4,10 +4,6 @@ package com.mycompany.agendamedica;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
 
-import java.util.List;
-import model.dao.ConsultaDAO;
-import model.dao.MedicoDAO;
-import model.dao.PacienteDAO;
 
 /**
  *
