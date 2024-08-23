@@ -49,7 +49,7 @@ public class MedicoDAO {
         }
     }
     
-    public void update(Medico m, String senhaADM){
+    public void update(Medico m, String senhaADM, String CRM){
         if(ConnectionFactory.getSenhaADM().equals(senhaADM)){
         
             Connection con = ConnectionFactory.getConnection();
@@ -60,7 +60,7 @@ public class MedicoDAO {
                 stmt.setString(1,m.getNome());
                 stmt.setString(2, m.getEspecialidade());
                 stmt.setString(3, m.getSenha());
-                stmt.setString(4, m.getCRM());
+                stmt.setString(4, CRM);
                 stmt.setString(5,m.getCRM());
 
                 stmt.executeUpdate();

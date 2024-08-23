@@ -260,6 +260,7 @@ public class CadastrarPessoa extends javax.swing.JFrame {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yy/MM/dd");
             String formattedDate = dateFormat.format(jDateChooser1.getDate());
             String sexo;
+            System.out.println(formattedDate.length());
             if(jRadioButton1.isSelected())
                 sexo = "M";
             else
@@ -269,6 +270,10 @@ public class CadastrarPessoa extends javax.swing.JFrame {
             if(daop.checkLogin(cpf, senha) == true){
                 verificador=true;
                 JOptionPane.showMessageDialog(null, "Usuário ja cadastrado");
+            }
+            if(cpf.length()!=11){
+                verificador=true;
+                JOptionPane.showMessageDialog(null,"CPF invalido!");
             }
             if(verificador==false&&senha.equals(confirmar)==true){
                 try {
@@ -314,7 +319,7 @@ public class CadastrarPessoa extends javax.swing.JFrame {
                     Logger.getLogger(CadastrarPessoa.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            else{
+            else if(formattedDate.length()!=8){
                 JOptionPane.showMessageDialog(null, "Olá, datas inseridas inválidas");
             }
             if(senha.equals(confirmar)==false){
@@ -333,6 +338,11 @@ public class CadastrarPessoa extends javax.swing.JFrame {
                 verificador2=true;
                 JOptionPane.showMessageDialog(null," Usuário já cadastrado!");
                 
+            }
+            
+            if(crm.length()!=6){
+                verificador2=true;
+                JOptionPane.showMessageDialog(null,"CRM invalido!");
             }
             
             if(verificador2==false&&senha.equals(confirmar)==true){

@@ -117,11 +117,16 @@ public class EditarMedico extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
-        Medico m = new Medico(nomeMedico.getText(), especialidadeTxt.getText(), senhaMedico.getText(), crmTxt.getText());
+        Medico m = new Medico(nomeMedico.getText(), especialidadeTxt.getText(), senhaMedico.getText(), medico.getCRM());
         String medicoPass = JOptionPane.showInputDialog("Insira sua senha para confirmar a operacao: ");
-            if(medicoPass.equals(medico.getSenha())){
+        boolean verificador = false;
+        if(crmTxt.getText().length()!=6){
+                verificador=true;
+                JOptionPane.showMessageDialog(null,"CRM invalido!");
+            }
+            if(medicoPass.equals(medico.getSenha())&&verificador==false){
                 String senhaADM = JOptionPane.showInputDialog("Insira a senha de administrador: ");
-                medicoDAO.update(m, senhaADM);
+                medicoDAO.update(m, senhaADM, crmTxt.getText());
                 JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
             }else{
                 JOptionPane.showMessageDialog(null, "Senha invalida! Faca a operacao novamente");
