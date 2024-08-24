@@ -169,10 +169,7 @@ public class RealizarConsulta extends javax.swing.JFrame {
             PacienteDAO daop = new PacienteDAO();
 
         DefaultTableModel table = (DefaultTableModel) jtConsultas.getModel();
-        int index5 = table.getRowCount();
-        for(int x=0;x<index5;x++){
-            table.removeRow(x);
-        }
+        table.setRowCount(0);
         lblEscolha.setVisible(true);
         Medico medico = Cadastro.getMedico();
         ArrayList<Consulta> consultas = medico.getConsultas();
