@@ -273,10 +273,11 @@ public class CadastrarPessoa extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null,"CPF invalido!");
             }
             if(verificador==false&&senha.equals(confirmar)==true){
-                try {
+                try  {
                     Paciente paciente = new Paciente(nome,formattedDate,sexo,senha,cpf);
-                    daop.create(paciente);
+                    boolean checkCPF = daop.create(paciente);
                     Paciente pacienteCriado = daop.returnkLogin(cpf, senha);
+                    if (checkCPF == false){
                     while (true){
                         String telefone = JOptionPane.showInputDialog("Cadastre um telefone");
                         if(telefone!=null){
@@ -311,6 +312,7 @@ public class CadastrarPessoa extends javax.swing.JFrame {
                         } else {
                             JOptionPane.showMessageDialog(null, "Olá, telefone inválido formato: 859NNNNNNNN");
                         }
+                    }
                     }
                 } catch (HeadlessException ex) {
                     Logger.getLogger(CadastrarPessoa.class.getName()).log(Level.SEVERE, null, ex);

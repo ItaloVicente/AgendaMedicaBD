@@ -56,8 +56,8 @@ public class Cadastro extends javax.swing.JFrame {
         bntLogin = new javax.swing.JButton();
         senhaTxt = new javax.swing.JPasswordField();
         bntCadastrar = new javax.swing.JButton();
-        jLabelCRM = new javax.swing.JLabel();
         jLabelCPF = new javax.swing.JLabel();
+        jLabelCRM = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         chxMedico = new javax.swing.JCheckBox();
@@ -112,13 +112,13 @@ public class Cadastro extends javax.swing.JFrame {
         getContentPane().add(bntCadastrar);
         bntCadastrar.setBounds(390, 700, 130, 18);
 
-        jLabelCRM.setText("CRM:");
-        getContentPane().add(jLabelCRM);
-        jLabelCRM.setBounds(140, 120, 30, 16);
-
         jLabelCPF.setText("CPF:");
         getContentPane().add(jLabelCPF);
-        jLabelCPF.setBounds(150, 120, 40, 16);
+        jLabelCPF.setBounds(140, 120, 50, 16);
+
+        jLabelCRM.setText("CRM:");
+        getContentPane().add(jLabelCRM);
+        jLabelCRM.setBounds(140, 120, 40, 16);
 
         jLabel3.setText("Senha:");
         getContentPane().add(jLabel3);

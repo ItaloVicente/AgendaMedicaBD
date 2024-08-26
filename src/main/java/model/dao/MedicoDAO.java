@@ -40,7 +40,7 @@ public class MedicoDAO {
 
                 JOptionPane.showMessageDialog(null,"Salvo com sucesso");
                 } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null,"Erro ao salvar: " + ex);
+                    JOptionPane.showMessageDialog(null,"Erro ao salvar: Cheque seus dados, como CRM " + "Erro: " + ex);
                 }finally{
                     ConnectionFactory.closeConnection(con, stmt);
                 }

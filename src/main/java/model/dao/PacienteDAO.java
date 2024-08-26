@@ -22,7 +22,7 @@ import javax.swing.JOptionPane;
  * @author super
  */
 public class PacienteDAO {
-    public void create(Paciente p){
+    public boolean create(Paciente p){
         
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
@@ -39,10 +39,12 @@ public class PacienteDAO {
 
             JOptionPane.showMessageDialog(null,"Salvo com sucesso");
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null,"Erro ao salvar: " + ex);
+                JOptionPane.showMessageDialog(null,"Erro ao salvar: Cheque seus dados, como CPF " + "Erro:" + ex);
+                return true;
             }finally{
                 ConnectionFactory.closeConnection(con, stmt);
             }
+       return false;
     }
     public void update(String CPF, String nome, String sexo, String senha, String data_de_nascimento){
         
