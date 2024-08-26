@@ -203,7 +203,7 @@ public class CancelarConsulta extends javax.swing.JFrame {
                             dataObj = formatoOriginal.parse(consulta.getData());
                             String dataFormatada = formatoDesejado.format(dataObj);
                             String timeWithSeconds = consulta.getHorario();  // Exemplo de hora no formato HH:mm:ss
-                            int prioridade = Integer.parseInt(consulta.getDescricao());
+                            int prioridade = consulta.getPrioridade();
                             if(contador==prioridade){
                                 if(medico.getNome().equals(nMedico)&&verificador1==false&&
                                     dataFormatada.equals(data)&&

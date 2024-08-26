@@ -256,10 +256,10 @@ public class AgendarConsulta extends javax.swing.JFrame {
                                 int prioridade = 0;
                                 for(Consulta lista : listaEsperaMedico){
                                     if(lista.getData().equals(data)&&lista.getHorario().equals(hora)){
-                                        prioridade = Integer.parseInt(lista.getDescricao())+1;
+                                        prioridade = lista.getPrioridade()+1;
                                     }
                                 }
-                                consulta.setDescricao(Integer.toString(prioridade));
+                                consulta.setPrioridade(prioridade);
                                 daoc.create(consulta);
                                 JOptionPane.showMessageDialog(null, "Voce entrou para lista de espera");
                                 medico.resetListaEspera();

@@ -25,8 +25,17 @@ public class Consulta {
     private String descricao;
     private double nota;
     private String status;
+    private int prioridade;
+
+    public int getPrioridade() {
+        return prioridade;
+    }
+
+    public void setPrioridade(int prioridade) {
+        this.prioridade = prioridade;
+    }
  
-    //data no formato dd/mm/aaaa
+    
     
     public double getNota() {
         return this.nota;

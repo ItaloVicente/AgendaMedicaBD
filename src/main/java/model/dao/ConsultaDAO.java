@@ -28,7 +28,7 @@ public class ConsultaDAO {
         PreparedStatement stmt = null;
         
         try {
-            stmt = con.prepareStatement("INSERT INTO consulta (id_medico, id_paciente, data_consulta, horario, descricao, nota, status)VALUES(?,?,?,?,?,?,?)");
+            stmt = con.prepareStatement("INSERT INTO consulta (id_medico, id_paciente, data_consulta, horario, descricao, nota, status, prioridade)VALUES(?,?,?,?,?,?,?,?)");
             stmt.setInt(1,c.getIdMedico());
             stmt.setInt(2, c.getIdPaciente());
             stmt.setString(3, c.getData());
@@ -36,6 +36,7 @@ public class ConsultaDAO {
             stmt.setString(5, c.getDescricao());
             stmt.setDouble(6, c.getNota());
             stmt.setString(7, c.getStatus());
+            stmt.setInt(8,c.getPrioridade());
 
             stmt.executeUpdate();
 
@@ -53,7 +54,7 @@ public class ConsultaDAO {
         PreparedStatement stmt = null;
         
         try {
-            stmt = con.prepareStatement("UPDATE consulta SET id_medico = ?, id_paciente = ?, data_consulta = ?, horario = ?, descricao = ?, nota = ?, status = ? WHERE id_consulta = ?");
+            stmt = con.prepareStatement("UPDATE consulta SET id_medico = ?, id_paciente = ?, data_consulta = ?, horario = ?, descricao = ?, nota = ?, status = ?, prioridade = ? WHERE id_consulta = ?");
             stmt.setInt(1,c.getIdMedico());
             stmt.setInt(2, c.getIdPaciente());
             stmt.setString(3, c.getData());
@@ -61,7 +62,8 @@ public class ConsultaDAO {
             stmt.setString(5, c.getDescricao());
             stmt.setDouble(6, c.getNota());
             stmt.setString(7, c.getStatus());
-            stmt.setInt(8,c.getId());
+            stmt.setInt(8,c.getPrioridade());
+            stmt.setInt(9,c.getId());
 
             stmt.executeUpdate();
 
@@ -228,17 +230,16 @@ public class ConsultaDAO {
     public ArrayList<Consulta> getConsultaListaEsperaMedico(int id){
         ArrayList<Consulta> consultas = new ArrayList<>();
             try (Connection conn = ConnectionFactory.getConnection();
-                    PreparedStatement stmt = conn.prepareStatement("SELECT * FROM consulta WHERE id_medico = ?")) {
+                    PreparedStatement stmt = conn.prepareStatement("SELECT * FROM consulta WHERE id_medico = ? AND status=\"espera\"")) {
                 stmt.setInt(1, id);
                 ResultSet rs = stmt.executeQuery();
                 
                 while (rs.next()) {
-                    if(rs.getString("status").equals("espera")){
                         Consulta consulta = new Consulta(rs.getInt("id_medico"),rs.getInt("id_paciente"),rs.getString("data_consulta"), rs.getString("horario"), rs.getDouble("nota"), rs.getString("status"));
                         consulta.setId(rs.getInt("id_consulta"));
                         consulta.setDescricao(rs.getString("descricao"));
+                        consulta.setPrioridade(rs.getInt("prioridade"));
                         consultas.add(consulta);
-                    }
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -248,17 +249,16 @@ public class ConsultaDAO {
     public ArrayList<Consulta> getConsultaListaEsperaPaciente(int id){
         ArrayList<Consulta> consultas = new ArrayList<>();
             try (Connection conn = ConnectionFactory.getConnection();
-                    PreparedStatement stmt = conn.prepareStatement("SELECT * FROM consulta WHERE id_paciente = ?")) {
+                    PreparedStatement stmt = conn.prepareStatement("SELECT * FROM consulta WHERE id_paciente = ? AND status=\"espera\"")) {
                 stmt.setInt(1, id);
                 ResultSet rs = stmt.executeQuery();
                 
                 while (rs.next()) {
-                    if(rs.getString("status").equals("espera")){
                         Consulta consulta = new Consulta(rs.getInt("id_medico"),rs.getInt("id_paciente"),rs.getString("data_consulta"), rs.getString("horario"), rs.getDouble("nota"), rs.getString("status"));
                         consulta.setId(rs.getInt("id_consulta"));
                         consulta.setDescricao(rs.getString("descricao"));
+                        consulta.setPrioridade(rs.getInt("prioridade"));
                         consultas.add(consulta);
-                    }
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
