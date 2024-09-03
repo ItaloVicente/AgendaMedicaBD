@@ -291,35 +291,6 @@ public class MedicoDAO {
         
         return medicos;
     }
-    public ArrayList<Medico> readForSenha(String senha){
-        
-        Connection con = ConnectionFactory.getConnection();
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-        ArrayList<Medico> medicos = new ArrayList<>();
-        try {
-            stmt = con.prepareStatement("SELECT * FROM medico WHERE senha LIKE ?");
-            stmt.setString(3, senha);
-            rs = stmt.executeQuery();
-            
-            while(rs.next()){
-                
-                Medico medico = new Medico(rs.getString("nome"),rs.getString("especialidade"), rs.getString("senha"), rs.getString("crm"));
-                medico.setId(rs.getInt("id_medico"));
-                medicos.add(medico);
-                
-            }
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(ConsultaDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            ConnectionFactory.closeConnection(con, stmt, rs);
-        }
-        
-        
-        
-        return medicos;
-    }
     
     public boolean checkLogin(String crm, String senha){
         boolean verificador = false;
